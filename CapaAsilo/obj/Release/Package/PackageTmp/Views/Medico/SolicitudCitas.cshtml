@@ -1,0 +1,577 @@
+﻿
+@{
+    ViewBag.Title = "SolicitudCitas";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="index.html">Mantenimiento</a></li>
+    <li class="breadcrumb-item active">Citas</li>
+</ol>
+
+<div class="card">
+    <img class="card-img-top" src="https://thumbs.dreamstime.com/b/m%C3%A9dico-mujer-con-estetoscopio-en-banner-horizontal-del-hospital-sosteniendo-un-cartel-sobre-el-fondo-200769310.jpg" height="300" style="border:dotted">
+    <div class="card-header">
+        <i class="fas fa-paste me-1"></i><b>Lista de Citas</b> 
+    </div>
+    <div class="card-body" style="background-color:deepskyblue">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-success" onclick="abrilModal(null)">
+                    <span class="fas fa-plus-circle"> </span>
+                    Nueva Ficha
+
+                </button>
+            </div>
+        </div>
+        <hr />
+
+        <table id="usuario" class="display cell-borde" style="width:100%; border:double">
+            <thead style="background-color:dodgerblue; color:black">
+                <tr>
+                    <th>No Ficha</th>
+                    <th>Medico Tratante</th>
+                    <th>Paciente</th>
+                    <th>Diagnostico</th>
+                    <th>Especialista</th>
+                    <th>Enfermero</th>
+                    <th>Precio</th>
+                    <th>Turno</th>
+                    <th>Estado</th>
+                    <th>Fecha de Visita</th>
+
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="FormUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="exampleModalLabel">Datos de la solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-danger text-white" style="border:outset">
+
+
+                <input id="txtid" type="hidden" value="0">
+
+
+                <form class="row">
+                    <div class="col-sm-3">
+                        <div class="mb-2">
+                            <label class="form-label">Seleccione Medico</label>
+                            <select id="cboMedico" class="form-control">
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Selecione Paciente</label>
+                            <select id="cboPaciente" class="form-control">
+                            </select>
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">Diagnostico</label>
+                            <textarea type="text" class="form-control" id="txtCintomas" name="Cintomas"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="mb-2">
+                            <label class="form-label">Especialista</label>
+                            <select id="cboespecialista" class="form-control">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Seleccione Enfermero</label>
+                            <select id="cboEnfermero" class="form-control">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPrecio" class="form-label">Precio Cita</label>
+                            <input type="text" class="form-control" id="txtPrecio" autocomplete="off" style="border-color:black">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="mb-3">
+                            <label class="form-label">Turno</label>
+                            <select id="txtTurno" class="form-control">
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Estado</label>
+                            <select id="cboEstado" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                </form>
+
+                <div class="row mt-2">
+                    <div class="col-12">
+
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="modal-footer bg-dark" style="border:dotted" >
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="Guardar(); " >
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script>
+
+        var tabladata;
+        var filaSeleccionada;
+
+
+
+             tabladata = $("#usuario").DataTable({
+
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                 url: '@Url.Action("ListarCitas", "Medico")',
+                type: "GET",
+                dataType: "json"
+
+                },
+                 "columns": [
+                     { "data": "IdCita" },
+
+                     {
+
+                         "data": "oMedico", "render": function (data) {
+
+                             return data.Nombre
+                         }
+                     },
+                     {
+
+                         "data": "oPaciente", "render": function (data) {
+
+                             return data.Nombre
+                         }
+                     },
+
+                     { "data": "Cintomas" },
+                     {
+
+                         "data": "oEspecialista", "render": function (data) {
+
+                             return data.Nombre
+                         }
+                     },
+                     {
+
+                         "data": "oEnfermero", "render": function (data) {
+                                
+                             return data.Nombre
+                         }
+                     },
+                     { "data": "PrecioCita" },
+                     {
+
+                         "data": "oTurno", "render": function (data) {
+
+                             return data.Horario
+                         }
+                     },
+
+                     {
+
+                         "data": "oEstado", "render": function (data) {
+
+                             return data.Descripcion
+                         }
+                     },
+                     { "data": "FechaRegistro" },
+
+                {
+                    "defaultContent": ' <button type="button" class="btn btn-outline-secondary btn-sm btn-editar"><i class="fas fa-pen"></i></button>' +
+                        ' <button type="button" class="btn btn-outline-danger btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "90px"
+                }
+
+                 ],
+                 "language": {
+                     "url": "https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
+                 },
+                 retrieve: true,
+                 paging: false
+
+
+
+             });
+
+
+
+
+
+          jQuery.ajax({
+            url: '@Url.Action("ListarMedico", "Personal")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cboMedico");
+                $.each(data.data, function (index, item) {
+
+                    $("<option>").attr({ "value": item.IdMedico }).text(item.IdMedico+'.) '+ item.Nombre + ' ' + item.Apellido).appendTo("#cboMedico");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+          });
+
+          jQuery.ajax({
+            url: '@Url.Action("ListarPacientes", "Medico")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cboPaciente");
+                $.each(data.data, function (index, item) {
+
+                    $("<option>").attr({ "value": item.COD_PACIENTE }).text(item.COD_PACIENTE +'.) '+ item.Nombre + ' ' + item.Apellido).appendTo("#cboPaciente");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+          });
+
+                jQuery.ajax({
+            url: '@Url.Action("ListarEspecialista", "Mantenimiento")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cboespecialista");
+                $.each(data.data, function (index, item) {
+
+                    $("<option>").attr({ "value": item.IdEspecialista }).text(item.IdEspecialista + '.) ' + item.Nombre + ' ' + item.Apellido).appendTo("#cboespecialista");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+                });
+
+
+
+                      jQuery.ajax({
+            url: '@Url.Action("ListarEnfermero", "Personal")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cboEnfermero");
+                  $.each(data.data, function (index, item) {
+
+                      $("<option>").attr({ "value": item.IdEnfermero }).text(item.IdEnfermero + '.) ' + item.Nombre + ' ' + item.Apellido).appendTo("#cboEnfermero");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+                      });
+
+                              jQuery.ajax({
+            url: '@Url.Action("ListarTurno", "Mantenimiento")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#txtTurno");
+                $.each(data.data, function (index, item) {
+
+                    $("<option>").attr({ "value": item.NoTurno }).text(item.Horario).appendTo("#txtTurno");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+                });
+
+
+                      jQuery.ajax({
+            url: '@Url.Action("ListarEstados", "Mantenimiento")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cboEstado");
+                $.each(data.data, function (index, item) {
+
+                    $("<option>").attr({ "value": item.IdEstado }).text(item.Descripcion).appendTo("#cboEstado");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+                });
+
+
+      
+
+
+
+         
+
+
+
+
+
+        function abrilModal(json) {
+         
+
+            $("#txtid").val(0);
+            $("#cboMedico").val($("#cboMedico option:first").val());
+            $("#cboPaciente").val($("#cboPaciente option:first").val());
+            $("#txtCintomas").val($("#txtCintomas option:first").val());
+            $("#cboespecialista").val($("#cboespecialista option:first").val());
+            $("#cboEnfermero").val($("#cboEnfermero option:first").val());
+            $("#txtPrecio").val(0);
+            $("#txtTurno").val($("#txtTurno option:first").val());
+            $("#cboEstado").val($("#cboEstado option:first").val());
+
+
+
+            $("#mensajeError").hide();
+
+
+
+
+            if (json != null) {
+                $("#txtid").val(json.IdCita);
+                $("#cboMedico").val(json.oMedico.IdMedico);
+                $("#cboPaciente").val(json.oPaciente.COD_PACIENTE);
+                $("#txtCintomas").val(json.Cintomas);
+                $("#cboespecialista").val(json.oEspecialista.IdEspecialista);
+                $("#cboEnfermero").val(json.oEnfermero.IdEnfermero);
+                $("#txtPrecio").val(json.PrecioCita);
+                $("#txtTurno").val(json.oTurno.NoTurno);
+                $("#cboEstado").val(json.oEstado.IdEstado);
+
+
+
+
+            }
+
+            $("#FormUsuario").modal("show");
+        }
+
+        $("#usuario tbody").on("click", '.btn-editar', function () {
+           
+
+            filaSeleccionada = $(this).closest("tr");
+
+            var data = tabladata.row(filaSeleccionada).data();
+            console.log(data);
+            abrilModal(data)
+
+
+
+
+        })
+
+        $("#usuario tbody").on("click", '.btn-eliminar', function () {
+
+            var usuarioSeleccionado = $(this).closest("tr");
+
+            var data = tabladata.row(usuarioSeleccionado).data();
+
+            swal({
+                title: "Esta Seguro?",
+                text: "¿Desea eliminar la solicitud?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: true
+            },
+                function () {
+
+                      jQuery.ajax({
+                   url: '@Url.Action("EliminarCitaMedica", "Medico")',
+                          type: "POST",
+                          data: JSON.stringify({ id: data.IdCita }),
+                   dataType: "json",
+                   contentType: "application/json; charset=utf-8",
+                   success: function (data) {
+
+
+
+                      if (data.resultado) {
+
+                          tabladata.row(usuarioSeleccionado).remove().draw();
+                     } else {
+
+                           swal("No se pudo eliminar", data.mensaje, "error")
+                       }
+                  },
+                   error: function (error) {
+                   console.log(error)
+                    }
+               });
+
+
+
+
+                });
+
+            console.log(data)
+
+
+        })
+
+        //Funcion para guardar una cita
+        function Guardar() {
+            var Cita = {
+              
+                IdCita: $("#txtid").val(),
+
+                oMedico: {
+                    IdMedico: $("#cboMedico option:selected").val(),
+                    Nombre: $("#cboMedico option:selected").text()
+                },
+                oPaciente: {
+                    COD_PACIENTE: $("#cboPaciente option:selected").val(),
+                    Nombre: $("#cboPaciente option:selected").text()
+                },
+                Cintomas: $("#txtCintomas").val(),
+                oEspecialista: {
+                    IdEspecialista: $("#cboespecialista option:selected").val(),
+                    Nombre: $("#cboespecialista option:selected").text()
+                },
+                oEnfermero: {
+                    IdEnfermero: $("#cboEnfermero option:selected").val(),
+                    Nombre: $("#cboEnfermero option:selected").text()
+                },
+                PrecioCita: $("#txtPrecio").val(),
+                oTurno: {
+                    NoTurno: $("#txtTurno option:selected").val(),
+                    Horario: $("#txtTurno option:selected").text()
+                },
+                oEstado: {
+                    IdEstado: $("#cboEstado option:selected").val(),
+                    Descripcion: $("#cboEstado option:selected").text()
+                },
+            }
+              jQuery.ajax({
+                url: '@Url.Action("GuardarCitaMedica", "Medico")',
+                  type: "POST",
+                  data: JSON.stringify({ objeto: Cita }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $(".modal-body").LoadingOverlay("hide");
+
+
+                    //Usuario cita
+                    if (Cita.IdCita == 0) {
+
+                        if (data.resultado != 0) {
+
+                            Cita.IdCita = data.resultado;
+                            //tabladata.row.add(Cita).draw(false);
+                            location.reload();
+                            $("#FormUsuario").modal("hide");
+
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                        //Editar cita
+                    } else {
+
+                        if (data.resultado) {
+                            //tabladata.row(filaSeleccionada).data(Cita).draw(false);
+                            location.reload();
+                            filaSeleccionada = null;
+                            $("#FormUsuario").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+                    }
+
+                  },
+                  error: function (error) {
+                      $(".modal-body").LoadingOverlay("hide");
+                      $("#mensajeError").text("Error Ajax");
+                      $("#mensajeError").show();
+                  },
+                 
+                  beforeSend: function () {
+                      $(".modal-body").LoadingOverlay("show", {
+                          imageResizeFactor: 2,
+                          text: "Cargando...",
+                          size: 14
+                      })
+                  }
+
+            });
+
+
+
+        }
+    </script>
+
+
+}

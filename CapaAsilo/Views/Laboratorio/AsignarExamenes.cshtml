@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "AsignarExamenes";
+    Layout = "~/Views/Shared/_Laboratorio.cshtml";
+}
+
+<h2>Asignar Resultados de Examen</h2>
+
+<form>
+    <div class="row" style="border:inset;margin-bottom:10px">
+
+        <div class="col-sm-3" style="display:flex">
+            <div class="mb-2">
+                <label for="cita">No. Cita:  </label>
+                <input type="text" class="form-control" id="txtIdCita">
+
+            </div>
+            <button type="button" class="btn btn-primary m-2" id="btnbuscar" onclick="cambiar()">Buscar</button>
+        </div>
+        <div class="col-sm-3">
+            <div class="mb-2">
+
+                <label for="paciente">Paciente</label>
+                <input type="text" class="form-control" id="paciente">
+
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            <div class="mb-2">
+
+                <label for="padecimiento">Padecimientos</label>
+                <input type="text" class="form-control" id="padesimiento">
+
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            <div class="mb-2">
+
+                <label for="estado">Estado</label>
+                <input type="text" class="form-control" id="estado">
+
+            </div>
+
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+
+                <div id="mensajeError2" class="alert alert-danger" role="alert">
+                    A simple danger alert—check it out!
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</form>
+<form id="contenedor2" class="row" style="background-color:burlywood; border:black">
+
+    <div class="col-sm-9">
+        <div class="mb-5">
+            <label class="form-label"><b>Ingresar Resultados de examen:</b></label>
+            <br />
+
+
+            <textarea type="text" class="form-control" id="txtResultados" name="Resultados"></textarea>
+
+            <button type="button" class="btn btn-dark m-2" id="btDarResultados" onclick="DarResultados();timpoAlert ()">
+                Guardar
+            </button>
+            <br />
+            <div class="row mt-1">
+                <div class="col-12">
+
+                    <div id="EnvioResul" class="alert alert-danger" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="card-body" style="border:dashed">
+        <hr />
+        <table id="usuario" class="display cell-borde" style="width:100%">
+            <thead style="background-color:aquamarine; color:black">
+                <tr>
+                    <th>No Cita</th>
+                    <th>Examen</th>
+                    <th>Descripcion</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+@section scripts {
+    
+    <script>
+        var tabladata;
+        var filaSeleccionada;
+
+        $(document).ready(function () {
+            $("#mensajeError2").hide();
+            $("#EnvioResul").hide();
+        })
+        function timpoAlert() {
+            setTimeout(function () {
+                $("#EnvioResul").fadeOut(1500);
+            }, 6000);
+        }
+
+
+         $(function () {
+            $("#btnbuscar").on("click", function () {
+
+
+                $("#mensajeError2").hide();
+                debugger;
+                jQuery.ajax({
+                    url: '@Url.Action("List_Paciente", "Especialista")' +
+                        "?IdCita=" + $("#txtIdCita").val(),
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        debugger;
+
+                        var ob = data.resultado;
+
+
+                        $("#txtIdCita").val(ob.IdCita)
+                        $("#paciente").val(ob.Nombre)
+                        $("#padesimiento").val(ob.Padecimientos)
+                        $("#estado").val(ob.Descripcion)
+
+
+
+
+
+                    }
+
+                });
+
+            });
+
+        })
+
+          $("#btnbuscar").on("click", function () {
+            debugger;
+            var Url = '@Url.Action("ListaMedicamentos", "Especialista")' +
+            "?IdCita=" + $("#txtIdCita").val();
+
+        tabladata = $("#usuario").DataTable({
+
+                        responsive: true,
+                        ordering: false,
+                        "ajax": {
+                            url: Url,
+                            type: "GET",
+                            dataType: "json"
+                        },
+                        "columns":
+                        [
+                                {
+
+                                "data": "oCitaMedica", "render": function (data) {
+
+                                        return data.IdCita
+                                    }
+                                },
+
+                                { "data": "oIdDetalleCita", "render": function (data) { return data.Nombre } },
+                                { "data": "oIdDetalleCita", "render": function (data) { return data.Descripcion } },
+                            {
+                                "defaultContent":
+                                    ' <button type="button" class="btn btn-outline-dark btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                                "orderable": false,
+                                "searchable": false,
+                                "width": "90px"
+                            }
+                        ],
+                        "language": {
+                            "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+            },
+            retrieve: true,
+            paging: false
+                    });
+        });
+
+         //
+    $("#btnbuscar").on("click", function () {
+                  var nueva_url = '@Url.Action("ListaMedicamentos", "Especialista")' +
+                      "?IdCita=" + $("#txtIdCita").val()
+
+            tabladata.ajax.url(nueva_url).load();
+
+
+    })
+
+        function cambiar() {
+
+            var ci = document.getElementById('txtIdCita').value;
+            document.getElementById('txtIdCita').value = ci;
+
+            var c = document.getElementById('txtResultados').value;
+            document.getElementById('txtResulta dos').value = c;
+        }
+
+
+
+        function DarResultados() {
+            var DarResultados = {
+
+                IdCita: $("#txtIdCita").val(),
+                Resultados: $("#txtResultados").val()
+
+            }
+              jQuery.ajax({
+                url: '@Url.Action("DarResultado", "Laboratorio")',
+                type: "POST",
+                data: JSON.stringify({ objeto: DarResultados }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $(".modal-body").LoadingOverlay("hide");
+
+
+
+
+                        if (data.resultado != false) {
+
+                            DarResultados.IdCita = data.resultado;
+                            //tabladata.row.add(Especialidad).draw(false);
+                            //$("#FormUsuario").modal("hide");
+
+                            $("#EnvioResul").text("Sean dado los resultados con exitos");
+                            $("#EnvioResul").show();
+
+
+
+                        } else {
+                            $("#EnvioResul").text(data.mensaje);
+                            $("#EnvioResul").show();
+                        }
+
+
+
+                  },
+                  error: function (error) {
+                      $(".modal-body").LoadingOverlay("hide");
+                      $("#mensajeError").text("Error Ajax");
+                      $("#mensajeError").show();
+                  },
+                  beforeSend: function () {
+                      $(".modal-body").LoadingOverlay("show", {
+                          imageResizeFactor: 2,
+                          text: "Cargando...",
+                          size: 14
+                      })
+                  }
+
+            });
+
+
+      }
+
+
+
+
+
+
+    </script>
+    
+    }

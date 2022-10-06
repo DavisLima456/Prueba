@@ -1,0 +1,283 @@
+﻿
+@{
+    ViewBag.Title = "Gastos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card">
+    <img class="card-img-top" src="https://thumbs.dreamstime.com/b/m%C3%A9dico-mujer-con-estetoscopio-en-banner-horizontal-del-hospital-sosteniendo-un-cartel-sobre-el-fondo-200769310.jpg" height="300">
+    <div class="card-body">
+        <i class="fas fa-user-md me-2"></i>Lista de Gastos
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-outline-primary" onclick="abrirModal(null)">Ingresar Gasto</button>
+            </div>
+        </div>
+
+        <hr />
+        <table id="tabla1" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <th>No Gastos</th>
+                    <th>Nombre del Gasto</th>
+                    <th>Descripcion del Gasto</th>
+                    <th>Monto del Gasto</th>
+                    <th>Fecha</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Gastos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+
+
+                <div class="row g-2">
+
+                    <div class="col-sm-6">
+                        <label for="txtgasto">No. Gasto</label>
+                        <input type="text" class="form-control" id="txtgasto" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtnombre">Nombre del Gasto</label>
+                        <input type="text" class="form-control" id="txtnombre" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtdescripcion">Descripcion del Gasto</label>
+                        <textarea type="text" class="form-control" id="txtdescripcion" name="descripcion" style="height:125px;resize:none"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="monto">Monto del Gasto</label>
+                        <input type="number" class="form-control" id="monto" autocomplete="off">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            This is a danger alert—check it out!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <script>
+        var tabladata;
+        var filaSeleccionada;
+
+         tabladata = $("#tabla1").DataTable({
+
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                 url: '@Url.Action("ListarGastos", "Mantenimiento")',
+                type: "GET",
+                dataType: "json"
+            },
+                 "columns": [
+                     { "data": "IdGastosGenerales" },
+                     { "data": "NombreGasto" },
+                     { "data": "Descripcion" },
+                     { "data": "MontoGasto" },
+                     { "data": "Fecha" },
+
+
+                {
+                    "defaultContent": ' <button type="button" class="btn btn-outline-secondary btn-sm btn-editar"><i class="fas fa-pen"></i></button>' +
+                        ' <button type="button" class="btn btn-outline-dark btn-sm ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "90px"
+                }
+
+                 ],
+                 "language": {
+                     "url": "https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
+                 }
+
+
+
+         });
+
+        function abrirModal(json) {
+
+            $("#txtgasto").val(0);
+            $("#txtnombre").val("");
+            $("#txtdescripcion").val("");
+            $("#monto").val(0);
+
+
+            $("#mensajeError").hide();
+
+
+
+
+            if (json != null) {
+
+
+                $("#txtgasto").val(json.IdGastosGenerales);
+                $("#txtnombre").val(json.NombreGasto);
+                $("#txtdescripcion").val(json.Descripcion);
+                $("#monto").val(json.MontoGasto);
+
+
+            }
+
+
+
+            $("#formModal").modal("show");
+
+        }
+        $("#tabla1 tbody").on("click", ".btn-editar", function () {
+
+            filaseleccionada = $(this).closest("tr");
+
+            var data = tabladata.row(filaseleccionada).data();
+            abrirModal(data)
+        })
+
+         $("#tabla1 tbody").on("click", ".btn-eliminar", function () {
+
+            var medicoseleccionado = $(this).closest("tr");
+
+            var data = tabladata.row(medicoseleccionado).data();
+            swal ({
+                title: "Esta Seguro",
+                text: "Desea Eliminar el Gasto",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: true
+            },
+                function () {
+                jQuery.ajax({
+                url: '@Url.Action("EliminarGastos", "Mantenimiento")',
+                    type: "POST",
+                    data: JSON.stringify({ id: data.IdGastosGenerales }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.resultado) {
+                        tabladata.row(medicoseleccionado).remove().draw();
+                    } else {
+                        swal("No se pudo Eliminar", data.mensaje, "error")
+                    }
+                },
+                error: function (error) {
+
+                    },
+                    beforeSend: function () {
+
+                    }
+
+            });
+
+
+                });
+
+            console.log(data)
+        })
+
+        function guardar() {
+
+            var Enfermero = {
+                IdGastosGenerales: $("#txtgasto").val(),
+                NombreGasto: $("#txtnombre").val(),
+                Descripcion: $("#txtdescripcion").val(),
+                MontoGasto: $("#monto").val(),
+
+
+            }
+            jQuery.ajax({
+                url: '@Url.Action("GuardarGastos","Mantenimiento")',
+                type: "POST",
+                data: JSON.stringify({ objeto: Enfermero }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    //Medico Nuevo
+                    if (Enfermero.IdGastosGenerales == 0) {
+
+                        if (data.resultado != 0) {
+                            Enfermero.IdGastosGenerales = data.resultado;
+                            //tabladata.row.add(Enfermero).draw(false);
+                            location.reload();
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+                    //Medico editar
+                    else {
+
+                        if (data.resultado) {
+                           // tabladata.row(filaseleccionada).data(Enfermero).draw(false);
+                            location.reload();
+                            filaseleccionada = null;
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+
+
+                },
+                error: function (error) {
+                    $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+
+                },
+                beforeSend: function (){
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size: 14
+                    })
+                }
+
+            });
+
+
+
+        }
+
+    </script>
+
+}
+

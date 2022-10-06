@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "Medicamentos";
+    Layout = "~/Views/Shared/_Farmacia.cshtml";
+}
+
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="index.html">Farmacia</a></li>
+    <li class="breadcrumb-item active">Medicamentos</li>
+</ol>
+
+<div class="card">
+    <img class="card-img-top" src="https://img.freepik.com/vector-premium/medico-dibujos-animados-mascara-protectora-lista-verificacion-portapapeles-diseno_52569-1688.jpg?w=2000" height="290" style="border:dashed">
+    <div class="card-body" style="background-color:antiquewhite">
+        <i class="fas fa-user-md me-2"></i><b>Lista de Medicamentos</b>
+    </div>
+    <div class="card-body" style="background-color: burlywood; padding: 3px 10px; border: PowderBlue 5px solid; border-radius:10px">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-outline-primary" onclick="abrirModal(null)">Ingresar Examen</button>
+            </div>
+        </div>
+
+        <hr />
+        <table id="pacientes" class="display cell-border" style="width: 100%; border: white groove; ">
+            <thead>
+                <tr>
+                    <th>No Medicamento</th>
+                    <th>Medicamento</th>
+                    <th>Descripcion</th>
+                    <th>Precio de Medicamento</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Medicamentos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+
+                <input id="txtid" type="hidden" value="0" />
+                <input id="txtidtipo" type="hidden" value="2" />
+                <div class="row g-2">
+
+                    <div class="col-sm-6">
+                        <label for="txtnombre">Medicamento</label>
+                        <input type="text" class="form-control" id="txtnombre" placeholder="Ingrese Nombre del Medicamento" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtapellido">Descripcion</label>
+                        <input type="text" class="form-control" id="txtapellido" placeholder="Ingrese la Descripcion" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="padecimientos">Precio</label>
+                        <input type="text" class="form-control" id="padecimientos" autocomplete="off">
+                    </div>
+
+                </div>
+                <div class="row g-2">
+                    <div class="col-sm-12">
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            This is a danger alert—check it out!
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script>
+
+
+
+        var tabladata;
+        var filaseleccionada;
+
+        tabladata = $("#pacientes").DataTable({
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                url: '@Url.Action("ListarMedicamento", "Farmacia")',
+                type: "GET",
+                dataType: "json"
+            },
+            "columns": [
+                { "data": "IdDetalleCita" },
+                { "data": "Nombre" },
+                { "data": "Descripcion" },
+                { "data": "Precio" },
+
+                {
+                    "defaultContent": '<button type="button" class="btn btn-outline-primary btn-editar"><i class="fas fa-pen"></i></button>' +
+                        '<button type="button" class="btn btn-outline-danger ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "90px"
+
+
+                }
+
+            ],
+            "language": {
+                "url": '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json'
+            }
+
+        });
+
+        function abrirModal(json) {
+            $("#txtid").val(0);
+            $("#txtnombre").val("");
+            $("#txtapellido").val("");
+            $("#padecimientos").val("");
+            $("#txtidtipo").val(2);
+
+            $("#mensajeError").hide();
+
+
+
+
+            if (json != null) {
+                $("#txtid").val(json.IdDetalleCita);
+                $("#txtnombre").val(json.Nombre);
+                $("#txtapellido").val(json.Descripcion);
+                $("#padecimientos").val(json.Precio);
+                $("#txtidtipo").val(2);
+
+
+            }
+
+
+
+            $("#formModal").modal("show");
+
+        }
+        //para editar los pacientes
+        $("#pacientes tbody").on("click", ".btn-editar", function () {
+
+            filaseleccionada = $(this).closest("tr");
+
+            var data = tabladata.row(filaseleccionada).data();
+            abrirModal(data)
+        })
+
+        //para eleiminar los pacientes
+
+        $("#pacientes tbody").on("click", ".btn-eliminar", function () {
+
+            var pacienteseleccionado = $(this).closest("tr");
+
+            var data = tabladata.row(pacienteseleccionado).data();
+            swal ({
+                title: "Esta Seguro",
+                text: "Desea Eliminar el Paciente",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: true
+            },
+                function () {
+                jQuery.ajax({
+                url: '@Url.Action("EliminarExamen", "Laboratorio")',
+                    type: "POST",
+                    data: JSON.stringify({ id: data.IdDetalleCita }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.resultado) {
+                        tabladata.row(pacienteseleccionado).remove().draw();
+                    } else {
+                        swal("No se pudo Eliminar", data.mensaje, "error")
+                    }
+                },
+                error: function (error) {
+
+                    },
+                    beforeSend: function () {
+
+                    }
+
+            });
+
+
+                });
+
+            console.log(data)
+        })
+         //PARA GUARDAR EL EXAMEN EN LA BASE DE DATOS
+        function guardar() {
+
+            var Paciente = {
+                IdDetalleCita: $("#txtid").val(),
+                Nombre: $("#txtnombre").val(),
+                Descripcion: $("#txtapellido").val(),
+                Precio: $("#padecimientos").val(),
+                oTipoDetalleCita: {
+                   Idtipo: $("#txtidtipo").val(),
+                }
+
+            }
+            jQuery.ajax({
+                url: '@Url.Action("GuardarExamen", "Laboratorio")',
+                type: "POST",
+                data: JSON.stringify({ objeto: Paciente }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    //Paciente Nuevo
+                    if (Paciente.IdDetalleCita == 0) {
+
+                        if (data.resultado != 0) {
+                            Paciente.IdDetalleCita = data.resultado;
+                            tabladata.row.add(Paciente).draw(false);
+                            $("#formModal").modal("hide");
+                        }
+                        else {
+
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+                    //paciente editar
+                    else {
+
+                        if (data.resultado) {
+                            tabladata.row(filaseleccionada).data(Paciente).draw(false);
+                            filaseleccionada = null;
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+
+
+                },
+                error: function (error) {
+                   $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+
+                },
+                beforeSend: function (){
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size: 14
+                    })
+                }
+
+            });
+
+
+
+        }
+
+
+    </script>
+
+}
+

@@ -1,0 +1,11 @@
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\CapaNegocio.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\CapaNegocio.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\CapaDatos.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\CapaEntidad1.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\CapaDatos.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\CapaEntidad1.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.csproj.AssemblyReference.cache
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.csproj.CopyComplete
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.pdb

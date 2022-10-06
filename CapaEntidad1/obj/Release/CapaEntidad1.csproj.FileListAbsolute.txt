@@ -1,0 +1,6 @@
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaEntidad1\bin\Release\CapaEntidad1.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaEntidad1\bin\Release\CapaEntidad1.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaEntidad1\obj\Release\CapaEntidad1.csproj.AssemblyReference.cache
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaEntidad1\obj\Release\CapaEntidad1.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaEntidad1\obj\Release\CapaEntidad1.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaEntidad1\obj\Release\CapaEntidad1.pdb

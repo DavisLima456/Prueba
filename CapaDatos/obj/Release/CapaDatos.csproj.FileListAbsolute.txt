@@ -1,0 +1,9 @@
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\bin\Release\CapaDatos.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\bin\Release\CapaDatos.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\bin\Release\CapaEntidad1.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\bin\Release\CapaEntidad1.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\obj\Release\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\obj\Release\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\obj\Release\CapaDatos.csproj.CopyComplete
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\obj\Release\CapaDatos.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaDatos\obj\Release\CapaDatos.pdb
