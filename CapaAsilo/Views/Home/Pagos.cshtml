@@ -4,6 +4,346 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Pagos</h2>
-<h1>Hola Mundo</h1>
+<div class="card">
+    <img class="card-img-top" src="https://thumbs.dreamstime.com/b/m%C3%A9dico-mujer-con-estetoscopio-en-banner-horizontal-del-hospital-sosteniendo-un-cartel-sobre-el-fondo-200769310.jpg" height="300">
+    <div class="card-body">
+        <i class="fas fa-user-md me-2"></i>Lista de Pagos de Mensualidad
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-outline-primary" onclick="abrirModal(null)">Nuevo Pago</button>
+            </div>
+        </div>
 
+        <hr />
+        <table id="tabla1" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <th>No. Pago</th>
+                    <th>Paciente</th>
+                    <th>Familiar</th>
+                    <th>Cantidad</th>
+                    <th>Mes Pagado</th>
+                    <th>Fecha de Pagado</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Datos de la Donacion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+
+                <input id="txtid" type="hidden" value="0" />
+                <div class="row g-2">
+                    <div class="col-sm-6">
+                        <label class="form-label">Paciente:</label>
+                        <select id="cbopaciente" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label">Mes:</label>
+                        <select id="cbomes" class="form-control">
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtfamiliar">Nombre del Familiar:</label>
+                        <input type="text" class="form-control" id="txtfamiliar" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="monto">Monto a Pagar?</label>
+                        <input type="number" class="form-control" id="monto" autocomplete="off">
+                    </div>
+
+
+
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            This is a danger alert—check it out!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+    <script>
+
+        var tabladata;
+        var filaseleccionada;
+
+        tabladata = $("#tabla1").DataTable({
+
+            responsive: true,
+            ordering: false,
+            "ajax": {
+                url: '@Url.Action("ListarPagos", "Home")',
+                type: "GET",
+                dataType: "json"
+            },
+            "columns": [
+                { "data": "IdMensualidad" },
+                {
+                    "data": "oPaciente", "render": function (data) {
+                        return data.Nombre
+                    }
+                },
+                { "data": "Entrante" },
+
+                { "data": "Monto" },
+                {
+                    "data": "oMes", "render": function (data) {
+                        return data.NombreMes
+                    }
+                },
+
+                { "data": "Fecha" },
+
+                {
+                    "defaultContent": '<button type="button" class="btn btn-outline-primary btn-editar"><i class="fas fa-pen"></i></button>' +
+                        '<button type="button" class="btn btn-outline-danger ms-2 btn-eliminar"><i class="fas fa-trash"></i></button>',
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "90px"
+
+
+                }
+
+            ],
+            "language": {
+                "url": '//cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json'
+            }
+
+        });
+
+        //listar los pacientes
+        jQuery.ajax({
+            url: '@Url.Action("ListarPacientes", "Medico")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cbopaciente");
+                $.each(data.data, function (index, item) {
+
+                    $("<option>").attr({ "value": item.COD_PACIENTE }).text(item.COD_PACIENTE + ' ->  ' + item.Nombre + ' ' + item.Apellido).appendTo("#cbopaciente");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+         //listar los Meses
+        jQuery.ajax({
+            url: '@Url.Action("ListarMeses", "Mantenimiento")',
+            type: "GET",
+            data: null,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  console.log(data)
+
+                  $("<option>").attr({ "value": "0", "disabled": "true" }).text("Seleccionar").appendTo("#cbomes");
+                $.each(data.data, function (index, item) {
+
+                    $("<option>").attr({ "value": item.IdMes }).text(item.IdMes + ' ->  ' + item.NombreMes).appendTo("#cbomes");
+                })
+            },
+            error: function (error) {
+                console.log(error)
+            }
+          });
+
+
+        function abrirModal(json) {
+            $("#txtid").val(0);
+            $("#cbopaciente").val($("#cbopaciente option:first").val());
+            $("#txtfamiliar").val("");
+            $("#monto").val(0);
+            $("#cbomes").val($("#cbomes option:first").val());
+
+
+            $("#mensajeError").hide();
+
+
+
+
+            if (json != null) {
+
+                $("#txtid").val(json.IdMensualidad);
+                $("#cbopaciente").val(json.oPaciente.COD_PACIENTE);
+                $("#txtfamiliar").val(json.Entrante);
+                $("#monto").val(json.Monto);
+                $("#cbomes").val(json.oMes.IdMes);
+
+
+            }
+
+
+
+            $("#formModal").modal("show");
+
+        }
+
+        $("#tabla1 tbody").on("click", ".btn-editar", function () {
+
+            filaseleccionada = $(this).closest("tr");
+
+            var data = tabladata.row(filaseleccionada).data();
+            abrirModal(data)
+        })
+          $("#tabla1 tbody").on("click", ".btn-eliminar", function () {
+
+            var medicoseleccionado = $(this).closest("tr");
+
+            var data = tabladata.row(medicoseleccionado).data();
+            swal ({
+                title: "Esta Seguro",
+                text: "Desea Eliminar el Pago",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: true
+            },
+                function () {
+                jQuery.ajax({
+                url: '@Url.Action("EliminarPagos", "Home")',
+                    type: "POST",
+                    data: JSON.stringify({ id: data.IdMensualidad }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.resultado) {
+                        tabladata.row(medicoseleccionado).remove().draw();
+                    } else {
+                        swal("No se pudo Eliminar", data.mensaje, "error")
+                    }
+                },
+                error: function (error) {
+
+                    },
+                    beforeSend: function () {
+
+                    }
+
+            });
+
+
+                });
+
+            console.log(data)
+        })
+
+        function guardar() {
+
+            var Enfermero = {
+                IdMensualidad: $("#txtid").val(),
+                oPaciente: {
+                    COD_PACIENTE: $("#cbopaciente option:selected").val(),
+                    Nombre: $("#cbopaciente option:selected").text()
+                },
+
+                Entrante: $("#txtfamiliar").val(),
+                Monto: $("#monto").val(),
+                oMes: {
+                    IdMes: $("#cbomes option:selected").val(),
+                    NombreMes: $("#cbomes option:selected").text()
+                },
+
+
+
+            }
+            jQuery.ajax({
+                url: '@Url.Action("GuardarPagos","Home")',
+                type: "POST",
+                data: JSON.stringify({ objeto: Enfermero }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    //Medico Nuevo
+                    if (Enfermero.IdMensualidad == 0) {
+
+                        if (data.resultado != 0) {
+                            Enfermero.IdMensualidad = data.resultado;
+                           // tabladata.row.add(Enfermero).draw(false);
+                            location.reload();
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+                    //Medico editar
+                    else {
+
+                        if (data.resultado) {
+                          //  tabladata.row(filaseleccionada).data(Enfermero).draw(false);
+                            location.reload();
+                            filaseleccionada = null;
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+
+
+                },
+                error: function (error) {
+                    $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+
+                },
+                beforeSend: function (){
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size: 14
+                    })
+                }
+
+            });
+
+
+
+        }
+
+    </script>
+    
+    
+    }

@@ -57,6 +57,7 @@
     <Compile Include="CN_Medico.cs" />
     <Compile Include="CN_Mes.cs" />
     <Compile Include="CN_Paciente.cs" />
+    <Compile Include="CN_PagoMensualidad.cs" />
     <Compile Include="CN_Recursos.cs" />
     <Compile Include="CN_Turno.cs" />
     <Compile Include="CN_Usuario.cs" />

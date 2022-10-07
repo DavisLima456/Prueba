@@ -287,7 +287,7 @@ namespace CapaAsilo.Controllers
 
         }
 
-        //fundacion
+        //Mes
         [HttpGet]
         public ActionResult ListarMeses()
         {

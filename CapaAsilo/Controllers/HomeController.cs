@@ -66,6 +66,46 @@ namespace CapaAsilo.Controllers
 
         }
 
+        //Pagos de Mensualidad
+        [HttpGet]
+        public ActionResult ListarPagos()
+        {
+
+            List<Mensualidad> olista = new List<Mensualidad>();
+
+            olista = new CN_PagoMensualidad().Listar();
+
+
+            return Json(new { data = olista }, JsonRequestBehavior.AllowGet);
+        }
+
+        // guardar pago de mensualidad
+        [HttpPost]
+        public ActionResult GuardarPagos(Mensualidad objeto)
+        {
+            object resultado;
+            string mensaje = string.Empty;
+            if (objeto.IdMensualidad == 0)
+            {
+                resultado = new CN_PagoMensualidad().Registrar(objeto, out mensaje);
+            }
+            else
+            {
+                resultado = new CN_PagoMensualidad().Editar(objeto, out mensaje);
+            }
+
+            return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult EliminarPagos(int id)
+        {
+            bool respuesta = false;
+            string mensaje = string.Empty;
+            respuesta = new CN_PagoMensualidad().Eliminar(id, out mensaje);
+            return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
+
+        }
 
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="Datos_Medico.cs" />
     <Compile Include="Datos_Meses.cs" />
     <Compile Include="Datos_Paciente.cs" />
+    <Compile Include="Datos_PagoMensualidad.cs" />
     <Compile Include="Datos_Turno.cs" />
     <Compile Include="Datos_Usuario.cs" />
     <Compile Include="Datos_ListarAgenda.cs" />
