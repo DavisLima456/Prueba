@@ -1,0 +1,116 @@
+﻿
+@{
+    ViewBag.Title = "Reporte5";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<br />
+<br />
+<h1 style="text-align:center">REPORTE No 5</h1>
+<br />
+<div class="card " style="background-image: url('../../Img/2.jpg');background-repeat:no-repeat">
+    <div class="card-header">
+        <i class="fas fa-tags me-1"></i>
+        Reporte No 5
+    </div>
+    <form action="@Url.Action("ExportarReporte5","Reportes" )" method="post">
+        <div class="col-sm-2 m-4">
+            <div class="d-grid mb-2">
+                <button class="btn btn-success" type="submit"><i class="fas fa-file-excel"></i>Exportar</button>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="card-body">
+
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="tabla" class="display cell-border" style="width:100%">
+                    <thead>
+                        <tr>
+
+                            <th>Persona</th>
+                            <th>Monto</th>
+                            <th>Descripcion</th>
+                            <th>Fecha</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script>
+
+
+
+            var tabladata;
+
+                $(document).ready(function () {
+
+
+
+         });
+           // string fechaincio, string fechafin, string idtransaccion
+
+            var Url = '@Url.Action("VerReporte5", "Reportes")'
+
+
+                tabladata = $("#tabla").DataTable({
+                    responsive: true,
+                    ordering: false,
+                    "ajax": {
+                        url: Url,
+                        type: "GET",
+                        dataType: "json"
+                    },
+                    "columns": [
+
+                        { "data": "Persona" },
+                        { "data": "Cantidad" },
+                        { "data": "Descripcion" },
+                        { "data": "Fecha" },
+                       
+
+                    ],
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                    }
+
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+
+}

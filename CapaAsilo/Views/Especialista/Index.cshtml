@@ -4,46 +4,77 @@
     Layout = "~/Views/Shared/_Especialista.cshtml";
 }
 
-<h2>Especialista</h2>
+<h2>Visita Medica</h2>
 
 <form>
-    <div class="row" style="border:inset;margin-bottom:10px">
+   
+    <div class="row" style="border:inset;margin-bottom:10px; display:block">
+        <div class="col-sm-3 m-2">
+            <div class="mb-2" style="display:flex">
 
-        <div class="col-sm-3" style="display:flex">
-            <div class="mb-2">
-                <label for="cita">No. Cita:  </label>
-                <input type="text" class="form-control" id="txtIdCita">
-
-            </div>
-            <button type="button" class="btn btn-primary m-2" id="btnbuscar" onclick="cambiar()">Buscar</button>
-        </div>
-        <div class="col-sm-3">
-            <div class="mb-2">
-
-                <label for="paciente">Paciente</label>
-                <input type="text" class="form-control" id="paciente">
-
+                <label for="cita">No. Ficha:  </label>
+                <input type="text" class="form-control m-2" id="txtIdCita">
+                <button type="button" class="btn btn-primary m-2" id="btnbuscar" onclick="cambiar()">Buscar</button>
             </div>
 
         </div>
-        <div class="col-sm-3">
-            <div class="mb-2">
+        <label class="text-center">FICHA MEDICA</label>
+        <hr />
+        <div class="col-sm-7">
+            <div class="mb-3">
 
-                <label for="padecimiento">Padecimientos</label>
-                <input type="text" class="form-control" id="padesimiento">
+                <label for="fecha"><b>Fecha de Visita: </b></label>
+                <label id="fecha"> </label>
 
             </div>
 
         </div>
-        <div class="col-sm-3">
-            <div class="mb-2">
+        <div class="col-sm-7">
+            <div class="mb-3">
 
-                <label for="estado">Estado</label>
-                <input type="text" class="form-control" id="estado">
+                <label for="paciente"><b>Paciente: </b></label>
+                <label id="paciente"> </label>
 
             </div>
 
         </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="medico"><b>Medico: </b></label>
+                <label id="medico"> </label>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="padecimiento"><b>Padecimientos:</b></label>
+                <label id="padesimiento"> </label>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="motivo"><b>Motivo de Visita: </b></label>
+                <label id="motivo"> </label>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="estado"><b>Estado:</b></label>
+                <label id="estado"> </label>
+
+            </div>
+
+        </div>
+
         <div class="row mt-2">
             <div class="col-12">
 
@@ -64,7 +95,7 @@
 
 
     <div class="card">
-        <img class="card-img-top" src="https://thumbs.dreamstime.com/b/m%C3%A9dico-mujer-con-estetoscopio-en-banner-horizontal-del-hospital-sosteniendo-un-cartel-sobre-el-fondo-200769310.jpg" height="300" style="border:dotted">
+        <img class="card-img-top" src="~/Img/laboratorio.jpg" height="300" style="border:dotted">
         <div class="card-header">
             <i class="fas fa-paste me-1"></i><b>Lista de Examenes</b>
         </div>
@@ -78,8 +109,8 @@
                     </button>
                 </div>
             </div>
-            
-        
+
+
             <hr />
 
             <table id="usuario" class="display cell-borde" style="width:100%; border:double">
@@ -339,13 +370,15 @@
                         debugger;
 
                         var ob = data.resultado;
-
-
+                            
                         $("#txtIdCita").val(ob.IdCita)
-                        $("#paciente").val(ob.Nombre)
-                        $("#padesimiento").val(ob.Padecimientos)
-                        $("#estado").val(ob.Descripcion)
-
+                        $("#fecha").text(ob.Fecha)
+                        $("#paciente").text(ob.Nombre)
+                        $("#medico").text(ob.Medico)
+                        $("#padesimiento").text(ob.Padecimientos)
+                        $("#motivo").text(ob.MotivoVisita)
+                        $("#estado").text(ob.Descripcion)
+                    
 
 
 

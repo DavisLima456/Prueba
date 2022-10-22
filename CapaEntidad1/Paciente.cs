@@ -10,8 +10,10 @@ namespace CapaEntidad1
     {
 
         public int COD_PACIENTE { get; set; }
+        public string Dpi { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+        public string Correo { get; set; }
         public string Padecimientos { get; set; }
         public string Enfermedades { get; set; }
         public int Edad { get; set; }

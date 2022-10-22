@@ -11,6 +11,7 @@ namespace CapaAsilo.Controllers
     public class PersonalController : Controller
     {
         // GET: Personal
+        #region VISTAS
         public ActionResult Medico()
         {
             return View();
@@ -19,7 +20,9 @@ namespace CapaAsilo.Controllers
         {
             return View();
         }
+        #endregion
 
+        #region MEDICO
         [HttpGet]
         public ActionResult ListarMedico()
         {
@@ -58,10 +61,10 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
-
+        #endregion
 
         // enfermero 
-
+        #region ENFERMERO
         [HttpGet]
         public ActionResult ListarEnfermero()
         {
@@ -102,9 +105,7 @@ namespace CapaAsilo.Controllers
 
         }
 
-
-
-
+        #endregion
 
 
     }

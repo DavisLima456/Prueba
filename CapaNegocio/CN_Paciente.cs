@@ -32,6 +32,11 @@ namespace CapaNegocio
             {
                 Mensaje = "El Apellido del Paciente No puede ser vacio";
             }
+            else if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
+            {
+                Mensaje = "El Correo del Familiar del Paciente No puede ser vacio";
+            }
+
             else if (string.IsNullOrEmpty(obj.Padecimientos) || string.IsNullOrWhiteSpace(obj.Padecimientos))
             {
                 Mensaje = "El campo de padecimientos no puede estar vacio";
@@ -41,9 +46,11 @@ namespace CapaNegocio
                 Mensaje = "El campo de enfermedades no puede estar vacio";
             }
 
-            
-
-
+            else if (string.IsNullOrEmpty(obj.Dpi) || string.IsNullOrWhiteSpace(obj.Dpi))
+            {
+                Mensaje = "El campo del Dpi no puede estar vacio";
+            }
+          
             else if (obj.Edad == 0)
             {
                 Mensaje = "Debe ingresar la edad del paciente";
@@ -92,6 +99,10 @@ namespace CapaNegocio
         {
             Mensaje = String.Empty;
 
+
+
+
+
             if (string.IsNullOrEmpty(obj.Nombre) || string.IsNullOrWhiteSpace(obj.Nombre))
             {
                 Mensaje = "El Nombre del paciente No puede ser vacio";
@@ -100,6 +111,15 @@ namespace CapaNegocio
             {
                 Mensaje = "El Apellido del paciente No puede ser vacio";
             }
+            else if (string.IsNullOrEmpty(obj.Correo) || string.IsNullOrWhiteSpace(obj.Correo))
+            {
+                Mensaje = "El Correo del Familiar del Paciente No puede ser vacio";
+            }
+            else if (string.IsNullOrEmpty(obj.Dpi) || string.IsNullOrWhiteSpace(obj.Dpi))
+            {
+                Mensaje = "El campo del Dpi no puede estar vacio";
+            }
+
             else if (string.IsNullOrEmpty(obj.Padecimientos) || string.IsNullOrWhiteSpace(obj.Padecimientos))
             {
                 Mensaje = "El campo no puede ser vacio";

@@ -9,3 +9,13 @@ C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio
 C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.csproj.CopyComplete
 C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.dll
 C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\obj\Release\CapaNegocio.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\Newtonsoft.Json.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Configuration.ConfigurationManager.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Security.AccessControl.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Security.Permissions.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Security.Principal.Windows.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\Newtonsoft.Json.xml
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Configuration.ConfigurationManager.xml
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Security.AccessControl.xml
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Security.Permissions.xml
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaNegocio\bin\Release\System.Security.Principal.Windows.xml

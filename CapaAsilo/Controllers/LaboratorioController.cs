@@ -11,6 +11,7 @@ namespace CapaAsilo.Controllers
     public class LaboratorioController : Controller
     {
         // GET: Laboratorio
+        #region VISTA
         public ActionResult Laboratorio()
         {
             return View();
@@ -20,11 +21,11 @@ namespace CapaAsilo.Controllers
         {
             return View();
         }
-
+        #endregion
 
         //metodo para listar los examenes
 
-        
+        #region EXAMENES
 
         [HttpGet]
         public ActionResult ListarExamen()
@@ -64,25 +65,22 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
         //metodo para asignar resultados 
-
+        #region RESULTADOS
         [HttpPost]
         public JsonResult DarResultado(AsignarResultados objeto)
         {
             object resultado;
             string mensaje = string.Empty;
 
-
             resultado = new CN_CitasMedicas().DarResultado(objeto, out mensaje);
-
-
 
             return Json(new { resultado = resultado, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
-
         }
 
-
+        #endregion
     }
 }

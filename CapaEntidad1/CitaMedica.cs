@@ -22,6 +22,7 @@ namespace CapaEntidad1
         public Estado oEstado { get; set; }
         public string FechaRegistro { get; set; }
         public string Resultado { get; set; }
+        public string Idtransaccion { get; set; }
 
 
     }

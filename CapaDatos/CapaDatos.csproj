@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conexion.cs" />
+    <Compile Include="DatosMenuMedico.cs" />
     <Compile Include="Datos_CostosM.cs" />
     <Compile Include="Datos_CostosMedico.cs" />
     <Compile Include="Datos_Donacion.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Datos_Meses.cs" />
     <Compile Include="Datos_Paciente.cs" />
     <Compile Include="Datos_PagoMensualidad.cs" />
+    <Compile Include="Datos_Reportes.cs" />
     <Compile Include="Datos_Turno.cs" />
     <Compile Include="Datos_Usuario.cs" />
     <Compile Include="Datos_ListarAgenda.cs" />

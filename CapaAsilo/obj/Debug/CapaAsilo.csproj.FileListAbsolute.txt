@@ -90,3 +90,10 @@ C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\b
 C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\CapaDatos.pdb
 C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\CapaEntidad1.dll
 C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\CapaEntidad1.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\ClosedXML.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\DocumentFormat.OpenXml.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\ExcelNumberFormat.dll
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\ClosedXML.pdb
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\ClosedXML.xml
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\DocumentFormat.OpenXml.xml
+C:\Users\USUARIO\Desktop\PROYECTO FINAL ANALISIS2\Proyecto_Analisis2\CapaAsilo\bin\ExcelNumberFormat.xml

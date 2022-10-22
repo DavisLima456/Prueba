@@ -38,13 +38,53 @@
     </div>
 </div>
 
+<div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Especialidad</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body ">
+
+
+                <div class="row g-2">
+
+                    <div class="col-sm-6">
+                        <label for="txtTurno">No. Mes</label>
+                        <input type="text" class="form-control" id="txtTurno"  autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txthorario">Nombre del Mes</label>
+                        <input type="text" class="form-control" id="txthorario" autocomplete="off">
+                    </div>
+
+
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            This is a danger alert—check it out!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="guardar()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @section scripts{
-    
+
     <script>
 
 
           var tabladata;
-
+        var filaseleccionada;
         tabladata = $("#tabla1").DataTable({
 
             responsive: true,
@@ -76,14 +116,151 @@
         });
 
 
+        function abrirModal(json) {
+
+            $("#txtTurno").val(0);
+            $("#txthorario").val("");
+
+
+            $("#mensajeError").hide();
 
 
 
 
+            if (json != null) {
+
+
+                $("#txtTurno").val(json.IdMes);
+                $("#txthorario").val(json.NombreMes);
+
+
+            }
+
+
+
+            $("#formModal").modal("show");
+
+        }
+
+        $("#tabla1 tbody").on("click", ".btn-editar", function () {
+
+            filaseleccionada = $(this).closest("tr");
+
+            var data = tabladata.row(filaseleccionada).data();
+            abrirModal(data)
+        })
+
+        $("#tabla1 tbody").on("click", ".btn-eliminar", function () {
+
+            var medicoseleccionado = $(this).closest("tr");
+
+            var data = tabladata.row(medicoseleccionado).data();
+            swal ({
+                title: "Esta Seguro",
+                text: "Desea Eliminar el Mes",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: true
+            },
+                function () {
+                jQuery.ajax({
+                url: '@Url.Action("EliminarMes", "Mantenimiento")',
+                    type: "POST",
+                    data: JSON.stringify({ id: data.IdMes }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.resultado) {
+                        tabladata.row(medicoseleccionado).remove().draw();
+                    } else {
+                        swal("No se pudo Eliminar", data.mensaje, "error")
+                    }
+                },
+                error: function (error) {
+
+                    },
+                    beforeSend: function () {
+
+                    }
+
+            });
+
+
+                });
+
+            console.log(data)
+        })
+
+
+        function guardar() {
+
+            var Enfermero = {
+                IdMes: $("#txtTurno").val(),
+                NombreMes: $("#txthorario").val(),
+
+
+            }
+            jQuery.ajax({
+                url: '@Url.Action("GuardarMes","Mantenimiento")',
+                type: "POST",
+                data: JSON.stringify({ objeto: Enfermero }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    //Medico Nuevo
+                    if (Enfermero.IdMes == 0) {
+
+                        if (data.resultado != 0) {
+                            Enfermero.IdMes = data.resultado;
+                            tabladata.row.add(Enfermero).draw(false);
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+                    //Medico editar
+                    else {
+
+                        if (data.resultado) {
+                            tabladata.row(filaseleccionada).data(Enfermero).draw(false);
+                            filaseleccionada = null;
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+
+
+                },
+                error: function (error) {
+                    $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+
+                },
+                beforeSend: function (){
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size: 14
+                    })
+                }
+
+            });
+
+
+
+        }
 
     </script>
-    
-    
-    
-    
-    }
+}

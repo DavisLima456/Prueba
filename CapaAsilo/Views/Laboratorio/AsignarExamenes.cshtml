@@ -7,39 +7,69 @@
 <h2>Asignar Resultados de Examen</h2>
 
 <form>
-    <div class="row" style="border:inset;margin-bottom:10px">
+    <div class="row" style="border:inset;margin-bottom:10px; display:block">
 
-        <div class="col-sm-3" style="display:flex">
-            <div class="mb-2">
-                <label for="cita">No. Cita:  </label>
-                <input type="text" class="form-control" id="txtIdCita">
+        <div class="col-sm-3 m-2">
+            <div class="mb-2" style="display:flex">
 
-            </div>
-            <button type="button" class="btn btn-primary m-2" id="btnbuscar" onclick="cambiar()">Buscar</button>
-        </div>
-        <div class="col-sm-3">
-            <div class="mb-2">
-
-                <label for="paciente">Paciente</label>
-                <input type="text" class="form-control" id="paciente">
-
+                <label for="cita">No. Ficha:  </label>
+                <input type="text" class="form-control m-2" id="txtIdCita">
+                <button type="button" class="btn btn-primary m-2" id="btnbuscar" onclick="cambiar()">Buscar</button>
             </div>
 
         </div>
-        <div class="col-sm-3">
-            <div class="mb-2">
+        <label class="text-center">FICHA MEDICA</label>
+        <hr />
+        <div class="col-sm-7">
+            <div class="mb-3">
 
-                <label for="padecimiento">Padecimientos</label>
-                <input type="text" class="form-control" id="padesimiento">
+                <label for="fecha"><b>Fecha de Visita: </b></label>
+                <label id="fecha"> </label>
 
             </div>
 
         </div>
-        <div class="col-sm-3">
-            <div class="mb-2">
+        <div class="col-sm-7">
+            <div class="mb-3">
 
-                <label for="estado">Estado</label>
-                <input type="text" class="form-control" id="estado">
+                <label for="paciente"><b>Paciente: </b></label>
+                <label id="paciente"> </label>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="medico"><b>Medico: </b></label>
+                <label id="medico"> </label>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="padecimiento"><b>Padecimientos:</b></label>
+                <label id="padesimiento"> </label>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="motivo"><b>Motivo de Visita: </b></label>
+                <label id="motivo"> </label>
+
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="mb-3">
+
+                <label for="estado"><b>Estado:</b></label>
+                <label id="estado"> </label>
 
             </div>
 
@@ -63,15 +93,21 @@
 
     <div class="col-sm-9">
         <div class="mb-5">
-            <label class="form-label"><b>Ingresar Resultados de examen:</b></label>
             <br />
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" class="btn btn-success" onclick="abrilModal(null)">
+                        <span class="fas fa-plus-circle"> </span>
+                        ASIGNAR RESULTADOS DE EXAMEN
+
+                    </button>
+                </div>
+            </div>
 
 
-            <textarea type="text" class="form-control" id="txtResultados" name="Resultados"></textarea>
 
-            <button type="button" class="btn btn-dark m-2" id="btDarResultados" onclick="DarResultados();timpoAlert ()">
-                Guardar
-            </button>
+
+        
             <br />
             <div class="row mt-1">
                 <div class="col-12">
@@ -107,9 +143,68 @@
     </div>
 </form>
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="FormUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #00E3E0" ; color: black">
+                 <h5 class="modal-title" id="exampleModalLabel"><span class="fas fa-comment-medical"></span>    Ingresar los Resultados</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                @*<div class="row g-1" style="background-color:gainsboro">*@
+
+              
+
+           
+
+                <label class="form-label"><b>Ingresar Resultados de examen:</b></label>
+
+
+                <textarea type="text" class="form-control" id="txtResultados" name="Resultados"></textarea>
+
+
+
+                @*</div>*@
+                <div class="row mt-2">
+                    <div class="col-12" style="background-color:chartreuse">
+
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer" style="background-color: #022C2C ">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="position: relative; right: 175px">
+                    <span>X </span>
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-success m-2" id="btDarResultados" onclick="DarResultados();timpoAlert ()">
+                    <span class="fas fa-save"></span>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
 @section scripts {
-    
+
     <script>
+
+
+
         var tabladata;
         var filaSeleccionada;
 
@@ -142,10 +237,14 @@
                         var ob = data.resultado;
 
 
+
                         $("#txtIdCita").val(ob.IdCita)
-                        $("#paciente").val(ob.Nombre)
-                        $("#padesimiento").val(ob.Padecimientos)
-                        $("#estado").val(ob.Descripcion)
+                        $("#fecha").text(ob.Fecha)
+                        $("#paciente").text(ob.Nombre)
+                        $("#medico").text(ob.Medico)
+                        $("#padesimiento").text(ob.Padecimientos)
+                        $("#motivo").text(ob.MotivoVisita)
+                        $("#estado").text(ob.Descripcion)
 
 
 
@@ -250,6 +349,7 @@
 
                             $("#EnvioResul").text("Sean dado los resultados con exitos");
                             $("#EnvioResul").show();
+                            $("#txtResultados").val("")
 
 
 
@@ -280,10 +380,35 @@
       }
 
 
+        function abrilModal(json) {
+          
+
+           
+
+
+
+            $("#mensajeError").hide();
+
+            if (json != null) {
+
+                $("#txtIdCita").val(json.IdCita);
+
+
+
+            }
+
+
+
+
+
+            $("#FormUsuario").modal("show");
+
+        }
+
 
 
 
 
     </script>
-    
-    }
+
+}

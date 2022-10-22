@@ -78,9 +78,11 @@ namespace CapaDatos
                     SqlCommand cmd = new SqlCommand("Sp_RegistrarPaciente", oconexion);
                     cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
                     cmd.Parameters.AddWithValue("Apellido", obj.Apellido);
+                    cmd.Parameters.AddWithValue("Correo", obj.Correo);
                     cmd.Parameters.AddWithValue("Padecimientos", obj.Padecimientos);
                     cmd.Parameters.AddWithValue("Enfermedades", obj.Enfermedades);
                     cmd.Parameters.AddWithValue("Edad", obj.Edad);
+                    cmd.Parameters.AddWithValue("Dpi", obj.Dpi);
                     cmd.Parameters.AddWithValue("Genero", obj.Genero);
                     cmd.Parameters.AddWithValue("Acompanante", obj.Acompanante);
                     cmd.Parameters.AddWithValue("MotivoVista", obj.MotivoVista);
@@ -116,9 +118,11 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("COD_PACIENTE", obj.COD_PACIENTE);
                     cmd.Parameters.AddWithValue("Nombre", obj.Nombre);
                     cmd.Parameters.AddWithValue("Apellido", obj.Apellido);
+                    cmd.Parameters.AddWithValue("Correo", obj.Correo);
                     cmd.Parameters.AddWithValue("Padecimientos", obj.Padecimientos);
                     cmd.Parameters.AddWithValue("Enfermedades", obj.Enfermedades);
                     cmd.Parameters.AddWithValue("Edad", obj.Edad);
+                    cmd.Parameters.AddWithValue("Dpi", obj.Dpi);
                     cmd.Parameters.AddWithValue("Genero", obj.Genero);
                     cmd.Parameters.AddWithValue("Acompanante", obj.Acompanante);
                     cmd.Parameters.AddWithValue("MotivoVista", obj.MotivoVista);

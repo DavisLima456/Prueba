@@ -4,46 +4,52 @@
     Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
+<div class="text-center">
+    <h1><b>FICHA MEDICA</b></h1>
+</div>
 
-<h1>FICHA MEDICA</h1>
 <form class="row">
 
-    <div class=" mt-3 m-2 m-l bg-danger" style="width:1500px">
+    <div class=" mt-3 m-2 m-l bg-danger" style="width:1500px;border:solid" >
 
         <div class="col-sm-3 m-4 text-white">
-            <div class="mb-2 ">
-                <label class="form-label"><b>Ingrese Numero de Cita: </b></label>
-                <input type="text" class="form-control" id="txtIdCita" style="border:dotted"  />
-                <button type="button" class="btn btn-primary btn-lg mt-2" id="btnBuscar">Buscar</button>
+            <label class="form-label"><b>Ingresar la Ficha:</b></label>
+            <div class="mb-2" style="display:flex">
+
+                <input type="text" class="form-control m-2" id="txtIdCita" style="width:80px ;border:dotted"/>
+
+                <button type="button" class="btn btn-primary btn-lg " id="btnBuscar">Buscar</button>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><b>Paciente:</b></label>
+                <input type="text" class="form-control" id="txtPaciente" name="referencia " style="width: 250px;border:dotted " />
             </div>
             <div class="mb-2">
                 <label class="form-label"><b>Fecha de vista:</b></label>
-                <input type="text" class="form-control" id="txtFecha" name="referencia" style="border:dotted" />
+                <input type="text" class="form-control" id="txtFecha" name="referencia" style="border:dotted; width:250px" />
             </div>
             <div class="mb-2">
                 <label class="form-label"><b>Especialista:</b></label>
-                <input type="text" class="form-control" id="txtEspecialista" name="referencia" style="border:dotted" />
+                <input type="text" class="form-control" id="txtEspecialista" name="referencia" style="border:dotted; width:250px" />
             </div>
         </div>
         <div class="col-sm-3 m-4 text-white">
             <div class="mb-2">
                 <label class="form-label"><b>Motivo de visita:</b></label>
-                <textarea type="text" class="form-control" id="txtMotivo" name="Cintomas" style=" width:400px; height:125px;resize:none;border:dotted"></textarea>
+                <textarea type="text" class="form-control" id="txtMotivo" name="Cintomas" style=" width:400px; height:80px;resize:none;border:dotted"></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label"><b>Resultados:</b></label>
-                <textarea type="text" class="form-control" id="txtResultados" name="Cintomas" style=" width:400px; height:125px;resize:none;border:dotted"></textarea>
+                <textarea type="text" class="form-control" id="txtResultados" name="Cintomas" style=" width:400px; height:80px;resize:none;border:dotted"></textarea>
             </div>
-            <div class="mb-3">
-                <label class="form-label"><b>Paciente:</b></label>
-                <input type="text" class="form-control" id="txtPaciente" name="referencia " style="width: 300px;border:dotted " />
-            </div>
+           
         </div>
 
         <div class="col-sm-3 m-4 text-white">
             <div class="mb-3">
                 <label class="form-label"><b>Examenes y Medicamentos:</b></label>
-                <textarea type="text" class="form-control" id="txtCintomas" name="Cintomas" style=" width: 600px; height: 300px; resize: none;border:dotted"></textarea>
+                <textarea type="text" class="form-control" id="txtCintomas" name="Cintomas" style=" width: 400px; height: 80px;border:dotted"></textarea>
             </div>
         </div>
     </div>

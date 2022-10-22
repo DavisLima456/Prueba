@@ -36,15 +36,29 @@ namespace CapaAsilo.Controllers
 
                 {
                     ViewBag.Error = null;
-                    return RedirectToAction("Medico", "Personal");
+                    return RedirectToAction("Index", "Home");
                 } 
 
             else if (oUsuario != null && rol == 2)
                 {
                     ViewBag.Error = null;
-                    return RedirectToAction("Pacientes", "Medico");
+                    return RedirectToAction("Menu", "Medico");
                 }
-
+            else if (oUsuario != null && rol == 3)
+            {
+                ViewBag.Error = null;
+                return RedirectToAction("HistorialEspecialista", "Especialista");
+            }
+            else if (oUsuario != null && rol == 4)
+            {
+                ViewBag.Error = null;
+                return RedirectToAction("Laboratorio", "Laboratorio");
+            }
+            else if (oUsuario != null && rol == 5)
+            {
+                ViewBag.Error = null;
+                return RedirectToAction("Farmacia", "Farmacia");
+            }
 
             return View();
         }

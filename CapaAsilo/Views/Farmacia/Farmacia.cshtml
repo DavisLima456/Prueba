@@ -1,0 +1,320 @@
+﻿
+@{
+    ViewBag.Title = "Farmacia";
+    Layout = "~/Views/Shared/_Farmacia.cshtml";
+}
+
+
+
+<div class="card" style="border-style:outset;border-width:20px">
+    <div class="card-header" >
+        <label class="form-label m-2" style="font-weight: bolder;">No Cita :</label>
+        <div class="row">
+
+            <div class="col-sm-3 m-1" style="display:flex">
+                <input type="text" class="form-control m-3" id="txtIdCita" name="referencia"  value="0">
+                <button type="button" class="btn btn-dark m-3" id="btBuscar">
+
+                    Buscar
+                </button>
+                
+            </div>
+
+         
+            <div class="col-sm-4">
+
+                
+                <div class="mb-1" style="text-align: center;padding-top:2px">
+                    <div id="mensajeError2" class="alert alert-danger" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="card  justify-content-center">
+        <div class="card-header text-center">
+            FACTURA
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bolder;">PACIENTE :   </label> <label id="Paciente">  </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bolder;">CORREO :   </label> <label id="Correo">  </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bolder;">DPI :  </label> <label id="Dpi">  </label>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bolder;">Edad :  </label><label id="Edad">  </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bolder;">Acompanante :   </label><label id="Acompanante">  </label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-weight: bolder;">ESPECIALISTA :  </label> <label id="Especialista">  </label>
+            </div>
+
+
+            <div class="mb-3">
+                <h1 style="font-size:14px;">MONTO</h1>
+                <label class="form-label" style="font-weight: bolder; font-size:40px">GTQ.</label>   <label class="form-label" style="font-weight: bolder; font-size:60px" id="txtTotal"></label>
+            </div>
+
+
+        </div>
+        <div class="card-footer text-center text-muted">
+            Asilo de Ansianos Cabeza de Algodon.
+            Mazatenango, Suchitepequez
+        </div>
+    </div>
+
+    <br />
+    <table id="usuario" class="display cell-borde" style="width:100%">
+        <thead style="background-color:burlywood; color:black;font-size:14px">
+            <tr>
+
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+
+
+
+
+
+            </tr>
+        </thead>
+
+        <tbody style="font-size:15px">
+        </tbody>
+
+    </table>
+    <br />
+    
+
+        <div style="display:flex; justify-content:left">
+            <label class="form-label" style="font-weight: bolder;font-size:30px ">TOTAL:  </label> <label class="form-label" style="font-weight: bolder; font-size:30px" id="txtTotal2"></label>
+        </div>
+
+
+
+
+    
+</div>
+
+
+
+
+@section scripts{
+    <script>
+
+        var tabladata;
+        var filaSeleccionada;
+
+        $(document).ready(function () {
+
+
+        })
+
+
+        /
+         $("#impri").click(function () {
+        window.print("@Url.Action("Farmacia", "Farmacia")", "_blank",
+            "menubar=no, toolbar=no, resizable=no, top=100, left=200, width=500, height=500");
+    });
+
+
+
+
+
+
+        function timpoAlertEnvioResul() {
+            setTimeout(function () {
+                $("#mensajeError2").fadeOut(1500);
+            }, 6000);
+        }
+
+
+        $("#btBuscar").on("click", function () {
+        });
+
+            var Url = '@Url.Action("DetalleCita", "Farmacia")' +
+                "?IdCita=" + $("#txtIdCita").val();
+
+            tabladata = $("#usuario").DataTable({
+
+
+
+                        ///
+                        responsive: true,
+                        ordering: false,
+                        "ajax": {
+                            url: Url,
+                            type: "GET",
+                            dataType: "json"
+                        },
+                        "columns":
+                        [
+
+                                { "data": "Descripcion" },
+                                { "data": "Precio" },
+                                { "data": "Cantidad" },
+                                { "data": "SubTotal" },
+
+
+                        ],
+                        "language": {
+                            "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                        },
+                        retrieve: true,
+                        paging: false
+
+            });
+
+
+
+
+
+        //function Imprimir() {
+
+        //    window.print();
+        //};
+
+
+        $("#btBuscar").on("click", function () {
+            var nueva_url = '@Url.Action("DetalleCita", "Farmacia")' +
+                "?IdCita=" + $("#txtIdCita").val();
+
+            tabladata.ajax.url(nueva_url).load();
+
+        });
+
+        $(document).ready(function () {
+
+            $("#mensajeError2").hide();
+
+        $(function () {
+                       $("#btBuscar").on("click", function () {
+            jQuery.ajax({
+            url: '@Url.Action("Totalcita", "Farmacia")' +
+                    "?IdCita=" + $("#txtIdCita").val(),
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+    success: function (data) {
+
+
+        var ob = data.resultado
+
+        $("#txtTotal2").text(ob.Total)
+        $("#txtTotal").text(ob.Total)
+
+
+
+    }
+
+    });
+
+    });
+
+           })
+
+        });
+
+
+
+
+
+
+
+
+     $(function () {
+               $("#btBuscar").on("click", function () {
+    jQuery.ajax({
+    url: '@Url.Action("VerCitas", "Farmacia")' +
+            "?IdCita=" + $("#txtIdCita").val(),
+    type: "GET",
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    success: function (data) {
+
+
+        var ob = data.resultado
+
+
+
+        $("#Correo").text(ob.Correo)
+        $("#Dpi").text(ob.Dpi)
+        $("#Paciente").text(ob.Paciente)
+        $("#Edad").text(ob.Edad)
+        $("#Acompanante").text(ob.Acompanante)
+        $("#Especialista").text(ob.Especialista)
+
+
+    }
+
+    });
+
+    });
+
+    })
+
+
+
+
+        //enviar correo
+        function enviar() {
+
+            /*    Correo txtTotal*/
+            debugger
+                jQuery.ajax({
+                    url: '@Url.Action("enviarCorreo", "Farmacia")' +
+                        "?correo=" + $("#Correo").text()+
+                    "&total=" + $("#txtTotal").text(),
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        debugger;
+
+
+
+                        if (data.resultado != false) {
+
+
+                            $("#mensajeError2").text("Se envio el correo");
+                            $("#mensajeError2").show();
+
+                        } else {
+                            $("#mensajeError2").text(data.mensaje);
+
+                            $("#mensajeError2").show();
+                            timpoAlertEnvioResul();
+                        }
+
+
+                    }
+
+                });
+        }
+
+
+
+
+    </script>
+
+
+}
+
+
+
+

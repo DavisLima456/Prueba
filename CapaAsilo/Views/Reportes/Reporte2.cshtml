@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "Reporte2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h1 style="text-align:center">REPORTE No 2</h1>
+<br />
+
+<div class="card" style="background-image: url('../../Img/2.jpg');background-repeat:no-repeat">
+    <form action="@Url.Action("ExportarReporte2","Reportes" )" method="post">
+        <div class="col-sm-2 m-4">
+            <div class="d-grid mb-2">
+                <button class="btn btn-success" type="submit"><i class="fas fa-file-excel"></i>Exportar</button>
+            </div>
+        </div>
+    </form>
+   
+
+
+    <div class="card-body">
+
+        <hr />
+
+        <table id="usuario" class="display cell-borde" style="width:100%">
+            <thead ">
+                <tr>
+                    <th>No Cita</th>
+                    <th>Paciente</th>
+                    <th>Cintomas</th>
+                    <th>Medicamentos</th>
+                    <th>Examenes</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script>
+
+        var tabladata;
+        var filaSeleccionada;
+
+
+
+
+
+
+        $(document).ready(function () {
+
+            $("#mensajeError2").hide();
+
+
+             var Url = '@Url.Action("VerReporte2", "Reportes")' +
+            "?IdTipo=" + $("#txtIdCita").val();
+
+            tabladata = $("#usuario").DataTable({
+
+
+                        responsive: true,
+                        ordering: false,
+                        "ajax": {
+                            url: Url,
+                            type: "GET",
+                            dataType: "json"
+                        },
+                        "columns":
+                        [
+
+                                { "data": "IdCita" },
+                                { "data": "Paciente" },
+                                { "data": "Cintomas" },
+                                { "data": "Medicamentos" },
+                                { "data": "Examenes" },
+
+
+                        ],
+                        "language": {
+                            "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+            },
+            retrieve: true,
+            paging: false
+            });
+
+
+
+
+
+        });
+
+        function timpoAlert() {
+            setTimeout(function () {
+                $("#mensajeError2").fadeOut(1500);
+            }, 6000);
+        }
+
+
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+
+        $("#btBuscar").on("click", function () {
+                  var nueva_url = '@Url.Action("VerReporte1", "Reportes")' +
+                      "?IdTIpo=" + $("#txtIdCita").val()
+
+            tabladata.ajax.url(nueva_url).load();
+
+
+
+
+
+        })
+
+        function cargar(){
+                 var nuevaurl = '@Url.Action("VerReporte1", "Reportes")' +
+                  "?IdTIpo=" + $("#txtIdCita").val()
+                   tabladata.ajax.url(nuevaurl).load();
+        }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+}
+
+

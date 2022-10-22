@@ -56,9 +56,12 @@
             </div>
             <div class="modal-body ">
 
-                <input id="txtid" type="hidden" value="0" />
+                <input id="txtid" type="text" value="0" />
                 <div class="row g-2">
-
+                    <div class="col-sm-6">
+                        <label for="txtdpi">DPI</label>
+                        <input type="text" class="form-control" id="txtdpi" placeholder="Ingrese su DPI" autocomplete="off">
+                    </div>
                     <div class="col-sm-6">
                         <label for="txtnombre">Nombres</label>
                         <input type="text" class="form-control" id="txtnombre" placeholder="Ingrese su Nombre" autocomplete="off">
@@ -66,6 +69,10 @@
                     <div class="col-sm-6">
                         <label for="txtapellido">Apellidos</label>
                         <input type="text" class="form-control" id="txtapellido" placeholder="Ingrese su Apellido" autocomplete="off">
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="txtacorreo">Correo</label>
+                        <input type="text" class="form-control" id="txtcorreo" placeholder="Ingrese un Correo" autocomplete="off">
                     </div>
                     <div class="col-sm-6">
                         <label for="padecimientos">Padecimientos</label>
@@ -161,8 +168,10 @@
 
         function abrirModal(json) {
             $("#txtid").val(0);
+            $("#txtdpi").val("");
             $("#txtnombre").val("");
             $("#txtapellido").val("");
+            $("#txtcorreo").val("");
             $("#padecimientos").val("");
             $("#enfermedades").val("");
             $("#edad").val("");
@@ -176,9 +185,12 @@
 
 
             if (json != null) {
+                
                 $("#txtid").val(json.COD_PACIENTE);
+                $("#txtdpi").val(json.Dpi);
                 $("#txtnombre").val(json.Nombre);
                 $("#txtapellido").val(json.Apellido);
+                $("#txtCorreo").val(json.Correo);
                 $("#padecimientos").val(json.Padecimientos);
                 $("#enfermedades").val(json.Enfermedades);
                 $("#edad").val(json.Edad);
@@ -255,7 +267,9 @@
             
             var Paciente = {
                 COD_PACIENTE: $("#txtid").val(),
+                Dpi: $("#txtdpi").val(),
                 Nombre: $("#txtnombre").val(),
+                Correo: $("#txtcorreo").val(),
                 Apellido: $("#txtapellido").val(),
                 Padecimientos: $("#padecimientos").val(),
                 Enfermedades: $("#enfermedades").val(),

@@ -9,7 +9,7 @@
     @* @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3">FARMACIA</a>
      
@@ -38,19 +38,19 @@
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+                <div class="sb-sidenav-menu"style="background-image: url('../../Img/images.png'); opacity: 1.2">
                     <div class="nav">
 
                         @*LOS REPORTE DEL ASILO*@
 
-                        <div class="sb-sidenav-menu-heading">MODULO DE PAGOS</div>
-                        <a class="nav-link" href="@Url.Action("Index","Home")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-poll"></i></div>
-                            Medicamentos
+                        <div class="sb-sidenav-menu-heading text-white" style="background: #393939 ">MODULO DE PAGOS</div>
+                        <a class="nav-link text-black" style="background: #D4B505" href="@Url.Action("Medicamentos","Farmacia")">
+                            <div class="sb-nav-link-icon text-black"><i class="fas fa-poll"></i></div>
+                            <b>MEDICAMENTOS</b> 
                         </a>
-                        <a class="nav-link" href="@Url.Action("Donaciones","Home")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-donate"></i></div>
-                            MODULO DE DONACIONES
+                        <a class="nav-link text-black" style="background: #D4B505" href="@Url.Action("Farmacia","Farmacia")">
+                            <div class="sb-nav-link-icon text-black"><i class="fas fa-donate"></i></div>
+                            <b>FARMACIA</b>
                         </a>
 
                     </div>

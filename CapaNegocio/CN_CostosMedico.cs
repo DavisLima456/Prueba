@@ -77,6 +77,24 @@ namespace CapaNegocio
             return objCapaDato.List_Paciente(IdCita);
         }
 
+        //metodo pra ver el datalle de la cita
+        public List<VistaCita> DetalleCita(int IdCita)
+        {
+            return objCapaDato.DetalleCita(IdCita);
+
+
+        }
+
+        public TotalCita Totalcita(int IdCita)
+        {
+
+            return objCapaDato.Totalcita(IdCita);
+        }
+        public VerCitas VerCitas(int IdCita)
+        {
+
+            return objCapaDato.VerCitas(IdCita);
+        }
 
 
     }

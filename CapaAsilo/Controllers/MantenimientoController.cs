@@ -11,6 +11,7 @@ namespace CapaAsilo.Controllers
     public class MantenimientoController : Controller
     {
         // GET: Mantenimiento
+        #region VISTAS
         public ActionResult Usuarios()
         {
             return View();
@@ -42,7 +43,10 @@ namespace CapaAsilo.Controllers
         {
             return View();
         }
-        //usuarios
+        #endregion
+
+        //***************** USUARIO ********************
+        #region USUARIOS
         [HttpGet]
         public ActionResult ListarUsuarios()
         {
@@ -83,9 +87,11 @@ namespace CapaAsilo.Controllers
 
         }
 
+        #endregion
 
 
-        //Especialidad
+        //***************** ESPECIALIDAD ********************
+        #region ESPECIALIDAD
         [HttpGet]
         public ActionResult ListarEspecialidad()
         {
@@ -123,8 +129,10 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
-        // especialista
+        //***************** ESPECIALISTA ********************
+        #region ESPECIALISTA
         [HttpGet]
         public ActionResult ListarEspecialista()
         {
@@ -162,10 +170,10 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
-
-        //Turno
-
+        //***************** TURNOS ********************
+        #region TURNO
         [HttpGet]
         public ActionResult ListarTurno()
         {
@@ -203,9 +211,10 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
-
-        //estados de citas
+        //***************** ESTADOS ********************
+        #region ESTADO DE CITA
         [HttpGet]
         public ActionResult ListarEstados()
         {
@@ -244,10 +253,11 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
 
-
-        //Fundacion
+        //***************** FUNDACION ********************
+        #region FUNDACION
         [HttpGet]
         public ActionResult ListarFundacion()
         {
@@ -287,7 +297,10 @@ namespace CapaAsilo.Controllers
 
         }
 
-        //Mes
+        #endregion
+
+        //***************** MESES ********************
+        #region MESES
         [HttpGet]
         public ActionResult ListarMeses()
         {
@@ -326,8 +339,10 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
-        //Gastos Generales
+        //***************** GASTOS GENERALES ********************
+        #region GASTOS GENERALES
         public ActionResult ListarGastos()
         {
 
@@ -365,7 +380,7 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
-
+        #endregion
 
     }
 }

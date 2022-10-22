@@ -10,6 +10,7 @@ namespace CapaAsilo.Controllers
 {
     public class HomeController : Controller
     {
+        #region VISTAS
         public ActionResult Index()
         {
             return View();
@@ -23,9 +24,10 @@ namespace CapaAsilo.Controllers
         {
             return View();
         }
-
+        #endregion
 
         //Donaciones
+        #region DONACIONES
         [HttpGet]
         public ActionResult ListarDonaciones()
         {
@@ -65,8 +67,10 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
         //Pagos de Mensualidad
+        #region MENSUALIDAD
         [HttpGet]
         public ActionResult ListarPagos()
         {
@@ -106,6 +110,7 @@ namespace CapaAsilo.Controllers
             return Json(new { resultado = respuesta, mensaje = mensaje }, JsonRequestBehavior.AllowGet);
 
         }
+        #endregion
 
     }
 }

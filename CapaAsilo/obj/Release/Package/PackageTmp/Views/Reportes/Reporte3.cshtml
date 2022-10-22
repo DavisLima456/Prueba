@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewBag.Title = "Reporte3";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<h1 style="text-align:center">REPORTE No 3</h1>
+<br />
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-tags me-1"></i>
+        Reporte No 3
+    </div>
+    <div class="card-body">
+
+        <form action="@Url.Action("ExportarCitas","Medico" )" method="post">
+            <div class="row align-items-end">
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">Fecha de Inicio:</label>
+                        <input class="form-control" type="date" id="txtfechainicio" name="fechainicio" style="width:140px" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">Fecha de Final:</label>
+                        <input class="form-control" type="date" id="txtfechafin" name="fechafin" style="width:140px" />
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="d-grid mb-2 m-2">
+                        <button class="btn btn-primary" id="btnbuscar" type="button"><i class="fas fa-search"></i>Buscar</button>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="d-grid mb-2">
+                        <button class="btn btn-success" type="submit"><i class="fas fa-file-excel"></i>Exportar</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="tabla" class="display cell-border" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Paciente</th>
+                            <th>Total</th>
+                            <th>Gastos Medicos</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script>
+
+
+
+            var tabladata;
+
+                $(document).ready(function () {
+
+                $("#txtfechainicio").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+                $("#txtfechafin").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+
+
+         });
+           // string fechaincio, string fechafin, string idtransaccion
+
+            var Url = '@Url.Action("VerReporte3", "Reportes")' +
+                "?fechainicio=" + $("#txtfechainicio").val()+
+                "&fechafin=" + $("#txtfechafin").val()
+
+
+                tabladata = $("#tabla").DataTable({
+                    responsive: true,
+                    ordering: false,
+                    "ajax": {
+                        url: Url,
+                        type: "GET",
+                        dataType: "json"
+                    },
+                    "columns": [
+                        { "data": "FechaIngreso" },
+                        { "data": "Paciente" },
+                        { "data": "Total" },
+                        { "data": "Descripcion" },
+                       
+                    ],
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                    }
+
+                });
+
+
+
+
+
+
+            $("#btnbuscar").on("click", function () {
+                 var nueva_url = '@Url.Action("VerReporte3", "Reportes")' +
+                "?fechainicio=" + $("#txtfechainicio").val()+
+                "&fechafin=" + $("#txtfechafin").val()
+
+                tabladata.ajax.url(nueva_url).load();
+            })
+
+
+
+
+
+
+
+
+     
+
+    </script>
+
+
+
+}

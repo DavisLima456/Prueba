@@ -203,8 +203,11 @@ namespace CapaDatos
                             objeto = new VerPaciente()
                             {
                                 IdCita = Convert.ToInt32(dr["IdCita"]),
+                                Fecha = dr["Fecha"].ToString(),
                                 Nombre = dr["Nombre"].ToString(),
+                                Medico = dr["Medico"].ToString(),
                                 Padecimientos = dr["Padecimientos"].ToString(),
+                                MotivoVisita = dr["MotivoVista"].ToString(),
                                 Descripcion = dr["Descripcion"].ToString(),
                             
                             };
@@ -221,6 +224,146 @@ namespace CapaDatos
             return objeto;
         }
 
+        //para visualizar la citas
+        public List<VistaCita> DetalleCita(int IdCita)
+        {
+            List<VistaCita> lista = new List<VistaCita>();
+
+            try
+            {
+
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
+                {
+
+                    SqlCommand cmd = new SqlCommand("Sp_Detalle", oconexion);
+                    cmd.Parameters.AddWithValue("IdCita", IdCita);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new VistaCita()
+                            {
+
+
+
+                                Descripcion = dr["Descripcion"].ToString(),
+                                Precio = Convert.ToDecimal(dr["Precio"]),
+                                Cantidad = Convert.ToInt32(dr["Cantidad"]),
+                                SubTotal = Convert.ToDecimal(dr["SubTotal"])
+
+
+
+                            }
+                            );
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                lista = new List<VistaCita>();
+            }
+
+            return lista;
+        }
+
+
+        public TotalCita Totalcita(int IdCita)
+        {
+            TotalCita objeto = new TotalCita();
+
+            try
+            {
+
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
+                {
+
+
+                    SqlCommand cmd = new SqlCommand("Sp_CalcularTotal", oconexion);
+                    cmd.Parameters.AddWithValue("IdCita", IdCita);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+
+                            objeto = new TotalCita()
+                            {
+
+                                Total = Convert.ToDecimal(dr["Total"])
+                            };
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                objeto = new TotalCita();
+            }
+
+            return objeto;
+        }
+
+        public VerCitas VerCitas(int IdCita)
+        {
+            VerCitas objeto = new VerCitas();
+
+            try
+            {
+
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cn))
+                {
+
+
+                    SqlCommand cmd = new SqlCommand("Sp_Visita", oconexion);
+                    cmd.Parameters.AddWithValue("IdCita", IdCita);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+
+                            objeto = new VerCitas()
+                            {
+
+                                Correo = dr["Correo"].ToString(),
+                                Paciente = dr["Paciente"].ToString(),
+                                Edad = Convert.ToInt32(dr["Edad"]),
+                                Acompanante = dr["Acompanante"].ToString(),
+                                Especialista = dr["Especialista"].ToString(),
+                                Dpi = dr["DPI"].ToString(),
+                                
+
+
+                            };
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+                objeto = new VerCitas();
+            }
+
+            return objeto;
+        }
 
 
 

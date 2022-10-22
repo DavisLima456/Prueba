@@ -9,9 +9,9 @@
     @* @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3">ESPECIALISTA</a>
+        <a class="navbar-brand ps-3"><i class="fas fa-user-md"></i> ESPECIALISTA</a>
      
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -31,24 +31,39 @@
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+                <div class="sb-sidenav-menu" style="background-image: url('../../Img/images.png'); opacity: 1.2">
                     <div class="nav">
 
                         @*LOS REPORTE DEL ASILO*@
-                        <div class="sb-sidenav-menu-heading">AGENDA DEL ESPECIALISTA</div>
-                        <a class="nav-link" href="@Url.Action("HistorialEspacialista","Especialista")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-poll"></i></div>
-                            HISTORIAL
+                        <div class="sb-sidenav-menu-heading text-black" style="background: #D4B505"  >AGENDA DEL ESPECIALISTA</div>
+                        <a class="nav-link text-black" style="border: solid; background-color: burlywood" href="@Url.Action("HistorialEspacialista","Especialista")">
+                            <div class="sb-nav-link-icon text-black"><i class="fas fa-calendar-alt text-black"></i></div>
+                            <b>HISTORIAL</b> 
                         </a>
-                        <div class="sb-sidenav-menu-heading">MODULO DE ASIGNACIONES</div>
-                        <a class="nav-link" href="@Url.Action("Index","Especialista")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-poll"></i></div>
-                            ASIGNAR EXAMENES
+
+                        <div class="sb-sidenav-menu-heading text-black" style="background: #D4B505 "><b>MODULO DE ASIGNACION</b></div>
+
+                        <a class="nav-link collapsed text-black" href="#" style="border: solid; background-color: burlywood" data-bs-toggle="collapse" data-bs-target="#collapsepersona" aria-expanded="false" aria-controls="collapsepersona">
+                            <div class="sb-nav-link-icon"><i class="fas fa-plus text-black"></i></div>
+                            <b>Examenes y Medicamentos</b>
+                            <div class="sb-sidenav-collapse-arrow text-black"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <a class="nav-link" href="@Url.Action("AsignarMedicina","Especialista")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-donate"></i></div>
-                            ASIGNAR MEDICAMENTOS
-                        </a>
+                        <div class="collapse" style="background: #393939" id="collapsepersona" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+                                <a class="nav-link text-white" href="@Url.Action("Index","Especialista")">
+                                    <div class="sb-nav-link-icon text-white"><i class="fas fa-microscope"></i></div>
+                                    ASIGNAR EXAMENES
+                                </a>
+                                <a class="nav-link text-white" href="@Url.Action("AsignarMedicina","Especialista")">
+                                    <div class="sb-nav-link-icon text-white"><i class="fas fa-pills"></i></div>
+                                    ASIGNAR MEDICAMENTOS
+                                </a>
+
+                            </nav>
+                        </div>
+
+
 
                     </div>
                 </div>
@@ -67,11 +82,11 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                        <div class="text-muted">Copyright &copy; Davis Noe Lima 2022</div>
                         <div>
-                            <a href="#">Privacy Policy</a>
+                            <a href="https://es.wikipedia.org/wiki/Mazatenango">Mazatenango, Suchitepequez</a>
                             &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            <a href="https://www.umg.edu.gt/">UMG &amp; UNIVERSIDAD MARIANO GALVEZ.</a>
                         </div>
                     </div>
                 </div>

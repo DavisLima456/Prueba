@@ -9,9 +9,9 @@
     @* @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3">ADMINISTRADOR </a>
+        <a class="navbar-brand ps-3" href="index.html"><i class="fas fa-tools"></i>  ADMINISTRADOR</a>
      
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -31,85 +31,166 @@
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+                <div class="sb-sidenav-menu" style="background-image: url('../../Img/images.png'); opacity: 1.2">
                     <div class="nav">
 
                         @*LOS REPORTE DEL ASILO*@
+                        <div class="sb-sidenav-menu-heading text-black" style="background: #D4B505 "><b> MODULO DE REPORTES</b></div>
+                        <a class="nav-link collapsed text-black" style="border: solid; background-color: burlywood" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon text-black"><i class="fas fa-file-archive text-black"></i></div>
+                            <b>Reportes</b>
+                            <div class="sb-sidenav-collapse-arrow text-black"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" style="background: #393939" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="@Url.Action("Reporte1","Reportes")">
+                                    <div class="sb-nav-link-icon "><i class="fas fa-file-alt text-white"></i></div>
+                                    Reporte No 1
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Reporte2","Reportes")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt text-white"></i></div>
+                                    Reporte No 2
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Reporte3","Reportes")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt text-white"></i></div>
+                                    Reporte No 3
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Reporte4","Reportes")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt text-white"></i></div>
+                                    Reporte No 4
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Reporte5","Reportes")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt text-white"></i></div>
+                                    Reporte No 5
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Reporte6","Reportes")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt text-white"></i></div>
+                                    Reporte No 6
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Reporte7","Reportes")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt text-white"></i></div>
+                                    Reporte No 7
+                                </a>
+                            </nav>
+                        </div>
 
-                        <div class="sb-sidenav-menu-heading">MODULO DE PAGOS</div>
-                        <a class="nav-link" href="@Url.Action("Index","Home")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-poll"></i></div>
-                            MODULO DE REPORTES
+                        <div class="sb-sidenav-menu-heading text-black" style="background: #D4B505 "><b>MODULO DE PAGOS</b></div>
+
+                        <a class="nav-link collapsed text-black" href="#"style="border:solid; background-color:burlywood" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon text-black"><i class="fas fa-dollar-sign text-black"></i></div>
+                            <b>Contabilidad</b> 
+                            <div class="sb-sidenav-collapse-arrow text-black"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <a class="nav-link" href="@Url.Action("Donaciones","Home")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-donate"></i></div>
-                            MODULO DE DONACIONES
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Pagos","Home")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
-                            MODULO DE PAGOS MESUALIDAD
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Solicitudes","Registro")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            GASTOS DE FUNDACION
-                        </a>
+                        <div class="collapse"style="background: #393939" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+                                <a class="nav-link" href="@Url.Action("Index","Home")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-white"></i></div>
+                                    Dashboard
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Farmacia","Farmacia")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar text-white"></i></div>
+                                    Factura
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Donaciones","Home")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-donate text-white"></i></div>
+                                    Donaciones
+                                </a>
+
+                                <a class="nav-link" href="@Url.Action("Pagos","Home")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-pager text-white"></i></div>
+                                    Pagos de Mensualidad
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Reporte5","Reportes")">
+                                    Gastos de Fundacion
+                                </a>
+
+
+                            </nav>
+                        </div>
 
 
                         @*MODULO PARA LLEVAR  EL CONTROL DE EL MEDICO Y ENFERMEROS*@
 
-                        <div class="sb-sidenav-menu-heading">PERSONAL</div>
-                        <a class="nav-link" href="@Url.Action("Medico","Personal")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-md"></i></div>
-                            MEDICO
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Enfermero","Personal")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-nurse"></i></div>
-                            ENFERMERO
-                        </a>
+                        <div class="sb-sidenav-menu-heading text-black" style="background: #D4B505 " ><b>MODULO DE PERSONAL</b></div>
 
+                        <a class="nav-link collapsed text-black" href="#" style="border: solid; background-color: burlywood"  data-bs-toggle="collapse" data-bs-target="#collapsepersona" aria-expanded="false" aria-controls="collapsepersona">
+                            <div class="sb-nav-link-icon"><i class="fas fa-users-cog text-black"></i></div>
+                            <b>Personal</b>
+                            <div class="sb-sidenav-collapse-arrow text-black"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse"style="background: #393939" id="collapsepersona" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+                                <a class="nav-link" href="@Url.Action("Medico","Personal")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-user-md text-white"></i></div>
+                                    MEDICO
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Enfermero","Personal")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-user-nurse text-white"></i></div>
+                                    ENFERMERO
+                                </a>
+
+                            </nav>
+                        </div>
 
 
                         @* MODULO PARA EL MANTENIMIENTO *@
-                        <div class="sb-sidenav-menu-heading">MANTENIMIENTO</div>
-                        <a class="nav-link" href="@Url.Action("Usuarios","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
-                            USUARIOS
+                        <div class="sb-sidenav-menu-heading text-black" style="background: #D4B505 " > <b>MODULO DE MANTENIMIENTO</b></div>
+
+                        <a class="nav-link collapsed text-black" href="#"style="border: solid; background-color: burlywood" data-bs-toggle="collapse" data-bs-target="#collapseMantenimiento" aria-expanded="false" aria-controls="collapseMantenimiento">
+                            <div class="sb-nav-link-icon"><i class="fas fa-hospital text-black"></i></div>
+                            <b>Mantenimiento</b> 
+                            <div class="sb-sidenav-collapse-arrow text-black"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <a class="nav-link" href="@Url.Action("Especialista","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-edit"></i></div>
-                            ESPECIALISTA
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Especialidad","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            ESPECIALIDAD
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Turno","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            TURNOS
-                        </a>
-                        <a class="nav-link" href="@Url.Action("EstadoCita","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            ESTADOS DE TURNO
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Fundacion","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            FUNDACION
-                        </a>
-                        <a class="nav-link" href="@Url.Action("Meses","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            MESES
-                        </a>
-                        
-                        <a class="nav-link" href="@Url.Action("Gastos","Mantenimiento")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            GASTOS GENERALES
-                        </a>
+                        <div class="collapse" style="background: #393939 " id="collapseMantenimiento" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+
+                                <a class="nav-link" href="@Url.Action("Usuarios","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    USUARIOS
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Especialista","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    ESPECIALISTA
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Especialidad","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    ESPECIALIDAD
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Turno","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    TURNOS
+                                </a>
+                                <a class="nav-link" href="@Url.Action("EstadoCita","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    ESTADOS DE TURNO
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Fundacion","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    FUNDACION
+                                </a>
+                                <a class="nav-link" href="@Url.Action("Mes","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    MESES
+                                </a>
+
+                                <a class="nav-link" href="@Url.Action("Gastos","Mantenimiento")">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-edit text-white"></i></div>
+                                    GASTOS GENERALES
+                                </a>
+
+                            </nav>
+                        </div>
+
+
 
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Asilo:</div>
-                    "Cabeza de Algodon"
+                    <div class="sb-nav-link-icon"><i class="fas fa-hospital-alt"></i> "Asilo Cabeza de Algodon"</div>
+                  
+                   
                 </div>
             </nav>
         </div>
@@ -122,11 +203,11 @@
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
+                        <div class="text-muted">Copyright &copy; Davis Noe Lima Lopez 2022</div>
                         <div>
-                            <a href="#">Privacy Policy</a>
+                            <a href="https://es.wikipedia.org/wiki/Mazatenango">Mazatenango, Suchitepequez</a>
                             &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            <a href="https://www.umg.edu.gt/">UMG &amp; UNIVERSIDAD MARIANO GALVEZ.</a>
                         </div>
                     </div>
                 </div>

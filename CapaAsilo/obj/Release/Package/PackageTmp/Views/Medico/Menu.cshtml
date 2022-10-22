@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+<h1 class="mt-4 text-center">MENU</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Dashboard</li>
+</ol>
+<div class="row" style="border:ridge">
+    <hr />
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body"></div>
+            <div class="row">
+
+
+                <div class="col-sm-10 ">
+                    <h6 class="m-1">Cantidad de Pacientes</h6>
+                    <h6 id="totalpaciente" class="m-1">0</h6>
+                </div>
+                <div class="col-sm-2">
+                    <i class="fas fa-user fa-2x"></i>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="@Url.Action("Pacientes","Medico")">Ver Pacientes</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white mb-4">
+            <div class="card-body"></div>
+            <div class="row">
+
+
+                <div class="col-sm-10 ">
+                    <h6 class="m-1">Crear Solicitud</h6>
+                    <h6 class="m-1" id="totalsolicitud">0</h6>
+                </div>
+                <div class="col-sm-2">
+                    <i class="fas fa-edit fa-2x"></i>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="@Url.Action("SolicitudCitas","Medico")">Ver Solicitudes</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body"></div>
+            <div class="row">
+
+
+                <div class="col-sm-10 ">
+                    <h6 class="m-1">Ficha Medica</h6>
+                    <h6>----------------</h6>
+                </div>
+                <div class="col-sm-2">
+                    <i class="fas fa-eye fa-2x"></i>
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="@Url.Action("FichaMedica","Medico")">Ver Ficha Medica</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-tags me-1"></i>
+        Historial de Solicitudes
+    </div>
+    <div class="card-body">
+
+        <form action="@Url.Action("ExportarCitas","Medico" )" method="post">
+            <div class="row align-items-end">
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">Fecha de Inicio:</label>
+                        <input class="form-control" type="date" id="txtfechainicio" name="fechainicio" style="width:140px"/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="mb-2">
+                        <label class="form-label">Fecha de Final:</label>
+                        <input class="form-control" type="date" id="txtfechafin" name="fechafin" style="width:140px"/>
+                    </div>
+                </div>
+              
+                <div class="col-sm-2">
+                    <div class="d-grid mb-2 m-2">
+                        <button class="btn btn-primary" id="btnbuscar" type="button"><i class="fas fa-search"></i>Buscar</button>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="d-grid mb-2">
+                        <button class="btn btn-success" type="submit"><i class="fas fa-file-excel"></i>Exportar</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="tabla" class="display cell-border" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Fecha Ingreso</th>
+                            <th>Paciente</th>
+                            <th>Medico</th>
+                            <th>Precio Cita</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script>
+
+
+
+            var tabladata;
+
+                $(document).ready(function () {
+
+                $("#txtfechainicio").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+                $("#txtfechafin").datepicker({ dateFormat: 'dd/mm/yy' }).datepicker('setDate', new Date())
+
+
+         });
+           // string fechaincio, string fechafin, string idtransaccion
+
+            var Url = '@Url.Action("ListaReportesCitas", "Medico")' +
+                "?fechainicio=" + $("#txtfechainicio").val()+
+                "&fechafin=" + $("#txtfechafin").val() 
+              
+
+                tabladata = $("#tabla").DataTable({
+                    responsive: true,
+                    ordering: false,
+                    "ajax": {
+                        url: Url,
+                        type: "GET",
+                        dataType: "json"
+                    },
+                    "columns": [
+                        { "data": "FechaIngreso" },
+                        { "data": "Paciente" },
+                        { "data": "Medico" },
+                        { "data": "PrecioCita" },
+                        { "data": "Cantidad" },
+                      
+                    ],
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.11.3/i18n/es_es.json"
+                    }
+
+                });
+
+
+
+           
+
+
+            $("#btnbuscar").on("click", function () {
+                 var nueva_url = '@Url.Action("ListaReportesCitas", "Medico")' +
+                "?fechainicio=" + $("#txtfechainicio").val()+
+                "&fechafin=" + $("#txtfechafin").val()
+
+                tabladata.ajax.url(nueva_url).load();
+            })
+
+
+
+
+
+
+
+
+        jQuery.ajax({
+            url: '@Url.Action("VistaMenu", "Medico")',
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+              success: function (data) {
+
+                  var objeto = data.resultado;
+                  $("#totalpaciente").text(objeto.CantidadPacientes)
+                  $("#totalsolicitud").text(objeto.CantidadSolicitud)
+            }
+
+          });
+
+
+    </script>
+
+
+
+}

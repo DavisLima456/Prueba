@@ -86,7 +86,7 @@
 
 
           var tabladata;
-
+        var filaselecionada;
         tabladata = $("#tabla1").DataTable({
 
             responsive: true,
@@ -121,7 +121,7 @@
 
 
         function abrirModal(json) {
-          
+
             $("#txtTurno").val(0);
             $("#txthorario").val("");
 
@@ -132,8 +132,8 @@
 
 
             if (json != null) {
-              
-              
+
+
                 $("#txtTurno").val(json.NoTurno);
                 $("#txthorario").val(json.Horario);
 
@@ -146,7 +146,125 @@
 
         }
 
+        $("#tabla1 tbody").on("click", ".btn-editar", function () {
 
+            filaseleccionada = $(this).closest("tr");
+
+            var data = tabladata.row(filaseleccionada).data();
+            abrirModal(data)
+        })
+
+        $("#tabla1 tbody").on("click", ".btn-eliminar", function () {
+
+            var medicoseleccionado = $(this).closest("tr");
+
+            var data = tabladata.row(medicoseleccionado).data();
+            swal ({
+                title: "Esta Seguro",
+                text: "Desea Eliminar el Turno",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-primary",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+                closeOnConfirm: true
+            },
+                function () {
+                jQuery.ajax({
+                url: '@Url.Action("EliminarTurno", "Mantenimiento")',
+                    type: "POST",
+                    data: JSON.stringify({ id: data.NoTurno }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    if (data.resultado) {
+                        tabladata.row(medicoseleccionado).remove().draw();
+                    } else {
+                        swal("No se pudo Eliminar", data.mensaje, "error")
+                    }
+                },
+                error: function (error) {
+
+                    },
+                    beforeSend: function () {
+
+                    }
+
+            });
+
+
+                });
+
+            console.log(data)
+        })
+
+
+        function guardar() {
+
+            var Enfermero = {
+                NoTurno: $("#txtTurno").val(),
+                Horario: $("#txthorario").val(),
+               
+
+            }
+            jQuery.ajax({
+                url: '@Url.Action("GuardarTurno","Mantenimiento")',
+                type: "POST",
+                data: JSON.stringify({ objeto: Enfermero }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    $(".modal-body").LoadingOverlay("hide");
+
+                    //Medico Nuevo
+                    if (Enfermero.NoTurno == 0) {
+
+                        if (data.resultado != 0) {
+                            Enfermero.NoTurno = data.resultado;
+                            tabladata.row.add(Enfermero).draw(false);
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+                    //Medico editar
+                    else {
+
+                        if (data.resultado) {
+                            tabladata.row(filaseleccionada).data(Enfermero).draw(false);
+                            filaseleccionada = null;
+                            $("#formModal").modal("hide");
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    }
+
+
+                },
+                error: function (error) {
+                    $(".modal-body").LoadingOverlay("hide");
+                    $("#mensajeError").text("Error Ajax");
+                    $("#mensajeError").show();
+
+                },
+                beforeSend: function (){
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        text: "Cargando...",
+                        size: 14
+                    })
+                }
+
+            });
+
+
+
+        }
 
 
 

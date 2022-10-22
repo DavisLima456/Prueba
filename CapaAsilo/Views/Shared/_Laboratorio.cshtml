@@ -9,9 +9,9 @@
     @* @Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3">LABORATORIO</a>
+        <a class="navbar-brand ps-3"><i class="fas fa-microscope"></i> LABORATORIO</a>
      
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
@@ -38,19 +38,20 @@
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+                <div class="sb-sidenav-menu"   style="background-image: url('../../Img/images.png'); opacity: 1.2">
                     <div class="nav">
 
                         @*LOS REPORTE DEL ASILO*@
 
-                        <div class="sb-sidenav-menu-heading">MODULO DE INGRESO Y ASIGNACION DE EXAMENES</div>
-                        <a class="nav-link" href="@Url.Action("Laboratorio","Laboratorio")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-poll"></i></div>
-                            Ingresar Examenes
+                        <div class="sb-sidenav-menu-heading text-black" style="background: #D4B505">MODULO DE INGRESO Y ASIGNACION DE EXAMENES</div>
+                        <a class="nav-link text-black"  style="border: solid; background-color: burlywood" href="@Url.Action("Laboratorio","Laboratorio")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-microscope text-black"></i></div>
+                            <b>Ingresar Examenes</b> 
                         </a>
-                        <a class="nav-link" href="@Url.Action("AsignarExamenes","Laboratorio")">
-                            <div class="sb-nav-link-icon"><i class="fas fa-donate"></i></div>
-                            MODULO DE DONACIONES
+                        <br />
+                        <a class="nav-link text-black" style="border: solid; background-color: burlywood" href="@Url.Action("AsignarExamenes","Laboratorio")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-medical-alt text-black"></i></div>
+                            <b>Resultados de Examen</b>
                         </a>
 
                     </div>

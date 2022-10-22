@@ -57,13 +57,29 @@
     <Compile Include="ListarAgenda.cs" />
     <Compile Include="Medico.cs" />
     <Compile Include="Mensualidad.cs" />
+    <Compile Include="MenuMedico.cs" />
     <Compile Include="Mes.cs" />
     <Compile Include="Paciente.cs" />
+    <Compile Include="Paypal\CheckOrders.cs" />
+    <Compile Include="Paypal\Response_Capture.cs" />
+    <Compile Include="Paypal\Response_Checkout.cs" />
+    <Compile Include="Paypal\Response_Paypal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporte1.cs" />
+    <Compile Include="Reporte2.cs" />
+    <Compile Include="Reporte3.cs" />
+    <Compile Include="Reporte4.cs" />
+    <Compile Include="Reporte5.cs" />
+    <Compile Include="Reporte6.cs" />
+    <Compile Include="Reporte7.cs" />
+    <Compile Include="ReporteCitas.cs" />
     <Compile Include="TipoDetalleCitaMedica.cs" />
+    <Compile Include="TotalCita.cs" />
     <Compile Include="Turno.cs" />
     <Compile Include="Usuario.cs" />
+    <Compile Include="VerCitas.cs" />
     <Compile Include="VerPaciente.cs" />
+    <Compile Include="VistaCita.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
